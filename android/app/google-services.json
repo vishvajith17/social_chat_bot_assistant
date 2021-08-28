@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "38627751527",
+    "project_id": "social-chat-bot-assistant",
+    "storage_bucket": "social-chat-bot-assistant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38627751527:android:817c32840218552643c6c2",
+        "android_client_info": {
+          "package_name": "com.example.social_chat_bot_assistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "38627751527-h667j7nfcvquihko2bvv9fveb02pbsuv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhtud-UpC44RbnKlwB6tL8a8FJvhpZeqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "38627751527-h667j7nfcvquihko2bvv9fveb02pbsuv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
