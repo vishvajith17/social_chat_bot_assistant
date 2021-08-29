@@ -34,8 +34,8 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "LOGIN",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    'LOGIN',
+                    style: TextStyle(fontSize: 25, fontFamily: 'Lobster'),
                   ),
                   SizedBox(height: size.height * 0.03),
                   SvgPicture.asset(
@@ -48,12 +48,6 @@ class _BodyState extends State<Body> {
                     child: Column(
                       children: <Widget>[
                         SizedBox(height: 20.0),
-                        /*TextFormField(
-                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                    onChanged: (val) {
-                      setState(() => email = val);
-                    },
-                  ),*/
                         RoundedInputField(
                           hintText: "Your Email",
                           validator: (val) =>
@@ -72,16 +66,6 @@ class _BodyState extends State<Body> {
                             setState(() => password = val);
                           },
                         ),
-                        /*TextFormField(
-                    obscureText: true,
-                    validator: (val) => val.length < 6
-                        ? 'Enter a password 6+ chars long'
-                        : null,
-                    onChanged: (val) {
-                      setState(() => password = val);
-                    },
-                  ),*/
-
                         RoundedButton(
                           text: "LOGIN",
                           press: () async {
@@ -104,28 +88,6 @@ class _BodyState extends State<Body> {
                             }
                           },
                         ),
-                        /*RaisedButton(
-                      color: Colors.pink[400],
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          dynamic result = await _authService
-                              .signInWithEmailAndPassword(email, password);
-                          if (result == null) {
-                            setState(() {
-                              error =
-                                  'Could not sign in with those credentials';
-                            });
-                          } else {
-                            Navigator.of(context).pop();
-
-                            print("result not null");
-                          }
-                        }
-                      }),*/
                         SizedBox(height: 10.0),
                         Text(
                           error,
@@ -134,15 +96,6 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-
-                  /*RoundedInputField(
-              hintText: "Your Email",
-              onChanged: (value) {},
-            ),
-            RoundedPasswordField(
-              onChanged: (value) {},
-            ),*/
-
                   SizedBox(height: size.height * 0.03),
                   AlreadyHaveAnAccountCheck(
                     press: () {

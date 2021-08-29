@@ -8,7 +8,7 @@ class DomainScreen extends StatelessWidget {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
       appBar: AppBar(
-        title: Text('DOMAINS'),
+        title: Text('HOME'),
       ),
       body: Body(),
     );

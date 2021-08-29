@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:social_chat_bot_assistant/constants.dart';
 import 'package:social_chat_bot_assistant/models/user_model.dart';
 import 'package:social_chat_bot_assistant/screens/AboutUs/about_us.dart';
+import 'package:social_chat_bot_assistant/screens/DomainPage/domain_screen.dart';
 import 'package:social_chat_bot_assistant/screens/Help/help.dart';
 import 'package:social_chat_bot_assistant/screens/Login/login_screen.dart';
 import 'package:social_chat_bot_assistant/screens/Profile/profile.dart';
@@ -32,28 +34,34 @@ class NavigationDrawerWidget extends StatelessWidget {
                 children: [
                   const SizedBox(height: 36),
                   buildMenuItem(
-                    text: 'Profile',
-                    icon: Icons.people,
+                    text: 'Home',
+                    icon: Icons.home,
                     onClicked: () => selectedItem(context, 0),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Help',
-                    icon: Icons.favorite_border,
+                    text: 'Profile',
+                    icon: Icons.people,
                     onClicked: () => selectedItem(context, 1),
+                  ),
+                  const SizedBox(height: 16),
+                  buildMenuItem(
+                    text: 'Help',
+                    icon: Icons.help,
+                    onClicked: () => selectedItem(context, 2),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
                     text: 'About Us',
                     icon: Icons.workspaces_outline,
-                    onClicked: () => selectedItem(context, 2),
+                    onClicked: () => selectedItem(context, 3),
                   ),
                   const SizedBox(height: 40),
                   Divider(color: Colors.white70),
                   const SizedBox(height: 24),
                   buildMenuItem(
                     text: 'Log Out',
-                    icon: Icons.account_tree_outlined,
+                    icon: Icons.logout,
                     onClicked: () async {
                       await _authService.signOut();
                     },
@@ -109,8 +117,8 @@ class NavigationDrawerWidget extends StatelessWidget {
 
     return ListTile(
       leading: Icon(icon, color: color),
-      title: Text(text, style: TextStyle(color: color)),
-      hoverColor: hoverColor,
+      title: Text(text, style: TextStyle(color: color, fontSize: 20)),
+      hoverColor: kPrimaryLightColor,
       onTap: onClicked,
     );
   }
@@ -121,20 +129,25 @@ class NavigationDrawerWidget extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Profile(),
+          builder: (context) => DomainScreen(),
         ));
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => HelpScreen(),
+          builder: (context) => Profile(),
         ));
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => AboutUsScreen(),
+          builder: (context) => HelpScreen(),
         ));
         break;
       case 3:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => AboutUsScreen(),
+        ));
+        break;
+      case 4:
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => LoginScreen(),
         ));

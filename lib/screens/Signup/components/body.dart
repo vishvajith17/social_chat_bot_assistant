@@ -40,19 +40,15 @@ class _BodyState extends State<Body> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    "SIGNUP",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  /*SvgPicture.asset(
-                    "assets/icons/signup.svg",
-                    height: size.height * 0.35,
-                  ),*/
                   Form(
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
+                        SizedBox(height: 20.0),
+                        Text(
+                          'REGISTER',
+                          style: TextStyle(fontSize: 25, fontFamily: 'Lobster'),
+                        ),
                         SizedBox(height: 20.0),
                         RoundedInputField(
                           hintText: "First Name",
@@ -67,7 +63,9 @@ class _BodyState extends State<Body> {
                         RoundedInputField(
                           hintText: "Last Name",
                           validator: (value) =>
-                              value.isEmpty ? 'Enter your last name' : null,
+                              value.isEmpty || value == firstName
+                                  ? 'Enter your last name'
+                                  : null,
                           onChanged: (value) {
                             setState(() {
                               lastName = value;
@@ -75,7 +73,7 @@ class _BodyState extends State<Body> {
                           },
                         ),
                         RoundedInputField(
-                          hintText: "Birth Date",
+                          hintText: "Birth Day (YYYY/MM/DD)",
                           icon: Icons.cake,
                           validator: (value) =>
                               value.isEmpty ? 'Enter your birth day' : null,
@@ -99,9 +97,10 @@ class _BodyState extends State<Body> {
                         RoundedInputField(
                           hintText: "Phone Number",
                           icon: Icons.phone,
-                          validator: (value) => value.isEmpty
-                              ? 'Enter a valid phone number'
-                              : null,
+                          validator: (value) =>
+                              value.length < 10 || value.length > 10
+                                  ? 'Enter a valid phone number'
+                                  : null,
                           onChanged: (value) {
                             setState(() {
                               phoneNumber = value;
@@ -119,7 +118,7 @@ class _BodyState extends State<Body> {
                           },
                         ),
                         RoundedPasswordField(
-                          validator: (val) => val.length < 6
+                          validator: (value) => value.length < 6
                               ? 'Enter a password 6+ chars long'
                               : null,
                           onChanged: (value) {
@@ -154,42 +153,6 @@ class _BodyState extends State<Body> {
                                 }
                               }
                             }),
-                        /*TextFormField(
-                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                    onChanged: (val) {
-                      setState(() => email = val);
-                    },
-                  ),
-                  SizedBox(height: 20.0),
-                  TextFormField(
-                    obscureText: true,
-                    validator: (val) => val.length < 6
-                        ? 'Enter a password 6+ chars long'
-                        : null,
-                    onChanged: (val) {
-                      setState(() => password = val);
-                    },
-                  ),*/
-
-                        /*RaisedButton(
-                      color: Colors.pink[400],
-                      child: Text(
-                        'Register',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          dynamic result = await _authService
-                              .createUserWithEmailAndPassword(email, password);
-                          if (result == null) {
-                            setState(() {
-                              error = 'Please supply a valid email';
-                            });
-                          } else {
-                            Navigator.of(context).pop();
-                          }
-                        }
-                      }),*/
                         SizedBox(height: 12.0),
                         Text(
                           error,
@@ -198,25 +161,6 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-                  /*RoundedInputField(
-              hintText: "Your Email",
-              onChanged: (value) {
-                email = value;
-              },
-            ),
-            RoundedPasswordField(
-              onChanged: (value) {
-                password = value;
-              },
-            ),
-            RoundedButton(
-              text: "SIGNUP",
-              press: () async {
-                dynamic result = await _authService
-                    .createUserWithEmailAndPassword(email, password);
-              },
-            ),*/
-
                   AlreadyHaveAnAccountCheck(
                     login: false,
                     press: () {

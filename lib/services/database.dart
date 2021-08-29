@@ -24,9 +24,11 @@ class DatabaseService {
   }
 
   //update user data
-  Future updateUserData(String fname, String lname, String bday, String nic,
-      String phonenumber) async {
+  Future updateUserData(String uid, String email, String fname, String lname,
+      String bday, String nic, String phonenumber) async {
     return await chatbotCollection.document(uid).setData({
+      'user_id': uid,
+      'email': email,
       'first_name': fname,
       'last_name': lname,
       'birth_day': bday,

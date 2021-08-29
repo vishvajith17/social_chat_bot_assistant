@@ -3,6 +3,7 @@ import 'package:social_chat_bot_assistant/components/text_field_container.dart';
 import 'package:social_chat_bot_assistant/constants.dart';
 
 class RoundedInputField extends StatelessWidget {
+  final dynamic initialValue;
   final TextEditingController controller;
   final String hintText;
   final IconData icon;
@@ -10,6 +11,7 @@ class RoundedInputField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   const RoundedInputField({
     Key key,
+    this.initialValue,
     this.controller,
     this.hintText,
     this.icon = Icons.person,
@@ -21,6 +23,7 @@ class RoundedInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
+        initialValue: initialValue,
         controller: controller,
         validator: validator,
         onChanged: onChanged,
