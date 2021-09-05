@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:social_chat_bot_assistant/components/rounded_button.dart';
 import 'package:social_chat_bot_assistant/screens/DomainPage/components/background.dart';
-import 'package:social_chat_bot_assistant/screens/TransportDomain/transport_domain_screen.dart';
-import 'package:social_chat_bot_assistant/screens/ElectricityDomain/electricity_domain_screen.dart';
+import 'package:social_chat_bot_assistant/screens/ElectricityDomain/sudden_power_failure_screen.dart';
+import 'package:social_chat_bot_assistant/screens/ElectricityDomain/complain_screen.dart';
+import 'package:social_chat_bot_assistant/screens/ElectricityDomain/get_schedule_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
@@ -25,13 +26,13 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             RoundedButton(
-              text: "Public Transport",
+              text: "Sudden Power Failure?",
               press: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return TransportDomainScreen();
+                      return SuddenPowerFailure();
                     },
                   ),
                 );
@@ -39,18 +40,27 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             RoundedButton(
-              text: "Telecommunication",
-              press: () {},
-            ),
-            SizedBox(height: size.height * 0.03),
-            RoundedButton(
-              text: "Electricity",
+              text: "Power-cut Schedule",
               press: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ElectricityDomainScreen();
+                      return GetSchedule();
+                    },
+                  ),
+                );
+              },
+            ),
+            SizedBox(height: size.height * 0.03),
+            RoundedButton(
+              text: "Complain",
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return Complaint();
                     },
                   ),
                 );
