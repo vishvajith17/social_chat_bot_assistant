@@ -4,8 +4,8 @@ import 'package:flutter_dialogflow/dialogflow_v2.dart';
 import 'package:intl/intl.dart';
 import 'package:social_chat_bot_assistant/constants.dart';
 
-class LostSomething extends StatefulWidget {
-  LostSomething({Key key, this.title}) : super(key: key);
+class BotChat extends StatefulWidget {
+  BotChat({Key key, this.title}) : super(key: key);
 
 // This widget is the home page of your application. It is stateful, meaning
 // that it has a State object (defined below) that contains fields that affect
@@ -19,10 +19,10 @@ class LostSomething extends StatefulWidget {
   final String title;
 
   @override
-  _LostSomethingState createState() => _LostSomethingState();
+  _ChatState createState() => _ChatState();
 }
 
-class _LostSomethingState extends State<LostSomething> {
+class _ChatState extends State<BotChat> {
   void response(query) async {
     AuthGoogle authGoogle =
         await AuthGoogle(fileJson: "assets/service.json").build();

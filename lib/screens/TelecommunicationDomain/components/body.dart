@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_chat_bot_assistant/components/rounded_button.dart';
 import 'package:social_chat_bot_assistant/screens/DomainPage/components/background.dart';
-import 'package:social_chat_bot_assistant/screens/TransportDomain/lost_something_screen.dart';
+import 'package:social_chat_bot_assistant/screens/TelecommunicationDomain/bot_chat_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
@@ -30,7 +30,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LostSomething();
+                      return BotChat();
                     },
                   ),
                 );
@@ -44,7 +44,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LostSomething();
+                      return BotChat();
                     },
                   ),
                 );
@@ -58,7 +58,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LostSomething();
+                      return BotChat();
                     },
                   ),
                 );
