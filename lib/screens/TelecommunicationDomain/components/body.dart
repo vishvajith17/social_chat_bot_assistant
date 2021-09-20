@@ -14,59 +14,59 @@ class Body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: size.height * 0.03),
-            SvgPicture.asset(
-              "assets/icons/login.svg",
-              height: size.height * 0.35,
-            ),
-            SizedBox(height: size.height * 0.03),
-            RoundedButton(
-              text: "Lost Something?",
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return BotChat();
-                    },
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: size.height * 0.03),
-            RoundedButton(
-              text: "Need Schedule",
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return BotChat();
-                    },
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: size.height * 0.03),
-            RoundedButton(
-              text: "Complains",
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return BotChat();
-                    },
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: size.height * 0.03),
-          ],
-        ),
+        // child: Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: <Widget>[
+        //     SizedBox(height: size.height * 0.03),
+        //     SvgPicture.asset(
+        //       "assets/icons/login.svg",
+        //       height: size.height * 0.35,
+        //     ),
+        //     SizedBox(height: size.height * 0.03),
+        //     RoundedButton(
+        //       text: "Lost Something?",
+        //       press: () {
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) {
+        //               return BotChat();
+        //             },
+        //           ),
+        //         );
+        //       },
+        //     ),
+        //     SizedBox(height: size.height * 0.03),
+        //     RoundedButton(
+        //       text: "Need Schedule",
+        //       press: () {
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) {
+        //               return BotChat();
+        //             },
+        //           ),
+        //         );
+        //       },
+        //     ),
+        //     SizedBox(height: size.height * 0.03),
+        //     RoundedButton(
+        //       text: "Complains",
+        //       press: () {
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) {
+        //               return BotChat();
+        //             },
+        //           ),
+        //         );
+        //       },
+        //     ),
+        //     SizedBox(height: size.height * 0.03),
+        //   ],
+        // ),
       ),
     );
   }

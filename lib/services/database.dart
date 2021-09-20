@@ -5,6 +5,9 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
+  // final CollectionReference profileList =
+  // Firestore.instance.collection('clients');
+
   // collection reference
   final CollectionReference chatbotCollection =
       Firestore.instance.collection('clients');
@@ -49,6 +52,23 @@ class DatabaseService {
       phonenumber: snapshot.data['phone_number'],
     );
   }
+
+  // //get user data from firebase
+  // Future getUsersList() async {
+  //   List itemsList = [];
+  //
+  //   try {
+  //     await profileList.getDocuments().then((querySnapshot) {
+  //       querySnapshot.documents.forEach((element) {
+  //         itemsList.add(element.data);
+  //       });
+  //     });
+  //     return itemsList;
+  //   } catch (e) {
+  //     print(e.toString());
+  //     return null;
+  //   }
+  // }
 
   // get user doc stream
   Stream<User> get userData {
