@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:social_chat_bot_assistant/components/rounded_button.dart';
 import 'package:social_chat_bot_assistant/screens/DomainPage/components/background.dart';
 import 'package:social_chat_bot_assistant/screens/TransportDomain/transport_domain_screen.dart';
+import 'package:social_chat_bot_assistant/screens/TelecommunicationDomain/telecommunication_domain_screen.dart';
+import 'package:social_chat_bot_assistant/screens/TelecommunicationDomain/bot_chat_screen.dart';
 import 'package:social_chat_bot_assistant/screens/ElectricityDomain/electricity_domain_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -40,7 +42,16 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             RoundedButton(
               text: "Telecommunication",
-              press: () {},
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BotChat();
+                    },
+                  ),
+                );
+              },
             ),
             SizedBox(height: size.height * 0.03),
             RoundedButton(

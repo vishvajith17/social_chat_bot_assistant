@@ -1,11 +1,15 @@
 import 'package:bubble/bubble.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dialogflow/dialogflow_v2.dart';
 import 'package:intl/intl.dart';
 import 'package:social_chat_bot_assistant/constants.dart';
+import 'package:social_chat_bot_assistant/models/user_model.dart';
+import 'package:social_chat_bot_assistant/services/database.dart';
 
-class LostSomething extends StatefulWidget {
-  LostSomething({Key key, this.title}) : super(key: key);
+class BotChat extends StatefulWidget {
+  BotChat({Key key, this.title}) : super(key: key);
 
 // This widget is the home page of your application. It is stateful, meaning
 // that it has a State object (defined below) that contains fields that affect
@@ -19,24 +23,93 @@ class LostSomething extends StatefulWidget {
   final String title;
 
   @override
-  _LostSomethingState createState() => _LostSomethingState();
+  _ChatState createState() => _ChatState();
 }
 
-class _LostSomethingState extends State<LostSomething> {
+class _ChatState extends State<BotChat> {
+
+  // List userProfilesList = [];
+  // String userID = "";
+  // String uid;
+  // String lastName;
+  String complaint=null;
+  int phone_number=null;
+  int reference_no=null;
+
   void response(query) async {
+
+    final user = await FirebaseAuth.instance.currentUser();
+    final userData = await Firestore.instance.collection('clients').document((user.uid)).get();
+    final userName = userData['last_name'];
+    final phone_number = userData['phone_number'];
+    CollectionReference complaintData = await Firestore.instance.collection('telecomplaint');
+    print(userName);
+
+//---------------------------------------------------------------
     AuthGoogle authGoogle =
-        await AuthGoogle(fileJson: "assets/service.json").build();
+        await AuthGoogle(fileJson: "assets/telecomchatbot-skxa-2b87d5049ce5.json").build();
     Dialogflow dialogflow =
         Dialogflow(authGoogle: authGoogle, language: Language.english);
     AIResponse aiResponse = await dialogflow.detectIntent(query);
-    setState(() {
-      messsages.insert(0, {
-        "data": 0,
-        "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString()
-      });
-    });
 
-    print(aiResponse.getListMessage()[0]["text"]["text"][0].toString());
+    print(DateTime.now().millisecondsSinceEpoch);
+    
+    if(aiResponse.queryResult.intent.displayName ==  'Default Welcome Intent'){
+      setState(() {
+        messsages.insert(0, {
+          "data": 0,
+          "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString().replaceAll('user', userName)
+        });
+      });
+
+      print(aiResponse.getListMessage()[0]["text"]["text"][0].toString().replaceAll('user', userName));
+    }
+    else if (aiResponse.queryResult.intent.displayName ==  'Complain - no - payment - issue - fallback - select.number') {
+      for (var i = 0; i < aiResponse
+          .getListMessage()
+          .length; i++) {
+        print(i);
+        if (i==0){
+        setState(() {
+          messsages.insert(0, {
+            "data": 0,
+            "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString().replaceAll(': 2', ': $reference_no')
+          });
+        });
+        }
+        else{
+          setState(() {
+            messsages.insert(0, {
+              "data": 0,
+              "message": aiResponse.getListMessage()[1]["text"]["text"][0].toString()
+            });
+        });
+      }
+    }}
+    else {
+      for (var i = 0 ; i < aiResponse.getListMessage().length; i++) {
+        print(i);
+        setState(() {
+          messsages.insert(0, {
+            "data": 0,
+            "message": aiResponse.getListMessage()[i]["text"]["text"][0]
+                .toString()
+          });
+        });
+      }
+      if(aiResponse.queryResult.intent.displayName ==  'Complain - no - payment - issue - fallback'){
+        complaint = query;
+        reference_no = DateTime.now().millisecondsSinceEpoch;
+        complaintData.add({
+          'complaint': complaint,
+          'reference no': reference_no,
+          'phone number': phone_number
+        }).then((value) => print ('User Added')).catchError((error) => print('failed to add user: $error'));
+      }
+
+      print(aiResponse.getListMessage().length);
+      print(aiResponse.getListMessage()[1]["text"]["text"][0].toString());
+    }
   }
 
   final messageInsert = TextEditingController();

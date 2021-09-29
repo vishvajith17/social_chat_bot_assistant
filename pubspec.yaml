@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -55,6 +55,7 @@ dependencies:
   flutube: ^0.8.3
   flutter_svg: ^0.19.1
   bubble: ^1.1.9+1
+  flutter_dialogflow_v2: ^0.3.2
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,14 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/telecomchatbot-skxa-2b87d5049ce5.json
+   # - assets/transport-agent-gpgv-149fd6638fbf.json
+  #  - assets/services/transport-agent-lost-something.json
+    #- assets/lost-something-plgg-678667f69a6c.json
+    - assets/electricity-other-complai-tsdh-3a6737d1a7a7.json
+    - assets/electricity-power-schedul-tsbv-701136c4a6d8.json
+    - assets/electricity-sudden_power_failure.json
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,4 +1,6 @@
 import 'package:bubble/bubble.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dialogflow/dialogflow_v2.dart';
 import 'package:intl/intl.dart';
@@ -23,20 +25,142 @@ class GetSchedule extends StatefulWidget {
 }
 
 class _GetScheduleState extends State<GetSchedule> {
-  void response(query) async {
-    AuthGoogle authGoogle =
-    await AuthGoogle(fileJson: "assets/service.json").build();
-    Dialogflow dialogflow =
-    Dialogflow(authGoogle: authGoogle, language: Language.english);
-    AIResponse aiResponse = await dialogflow.detectIntent(query);
-    setState(() {
-      messsages.insert(0, {
-        "data": 0,
-        "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString()
-      });
-    });
 
-    print(aiResponse.getListMessage()[0]["text"]["text"][0].toString());
+// for suggestions
+  List<String> suggestions = [];
+  void botSuggestions(List<dynamic> responses) {
+    //responses = aiResponse.getListMessage()
+
+    responses.forEach((message) {
+      if (message['payload'] != null) {
+        List<dynamic> suggestionList = message['payload']['suggestions'];
+        suggestionList.forEach((suggestion) => {
+              setState(() {
+                messsages.insert(0, {
+                  "data": 0,
+                  "message": message["text"]["text"][0].toString()
+                });
+              })
+            });
+      }
+    });
+  } //----------
+
+  // multiple response
+  void insertMessage(AIResponse aiResponse) {
+    for (var i = 0; i < aiResponse.getListMessage().length; i++) {
+      print(i);
+
+      setState(() {
+        messsages.insert(0, {
+          "data": 0,
+          "message":
+              aiResponse.getListMessage()[i]["text"]["text"][0].toString()
+        });
+      });
+    }
+  }
+
+//---------------
+  void response(query) async {
+    String account_num;
+    String scdate;
+    String formatedsdate;
+
+    final user = await FirebaseAuth.instance.currentUser();
+    final userData = await Firestore.instance
+        .collection('clients')
+        .document((user.uid))
+        .get();
+    final userName = userData['last_name'];
+
+    //-----------------------------------------------------------------------------------------------------
+    AuthGoogle authGoogle = await AuthGoogle(
+            fileJson: "assets/electricity-power-schedul-tsbv-701136c4a6d8.json")
+        .build();
+    Dialogflow dialogflow =
+        Dialogflow(authGoogle: authGoogle, language: Language.english);
+    AIResponse aiResponse = await dialogflow.detectIntent(query);
+//---------------------------------------
+
+//-----------------------------------------
+    // final List<Context> outputContexts = aiResponse.queryResult.outputContexts;
+    //print(aiResponse.queryResult.);
+
+    if (aiResponse.queryResult.intent.displayName == 'Welcome.default') {
+      setState(() {
+        messsages.insert(0, {
+          "data": 0,
+          "message": aiResponse
+              .getListMessage()[0]["text"]["text"][0]
+              .toString()
+              .replaceAll('user', userName)
+        });
+      });
+      for (var i = 1; i < aiResponse.getListMessage().length; i++) {
+        setState(() {
+          messsages.insert(0, {
+            "data": 0,
+            "message":
+                aiResponse.getListMessage()[i]["text"]["text"][0].toString()
+          });
+        });
+      }
+    } else if (aiResponse.queryResult.intent.displayName == 'ask-account-num') {
+      insertMessage(aiResponse);
+      account_num = aiResponse.queryResult.parameters['account_number'];
+    } else if (aiResponse.queryResult.intent.displayName == 'ask-date-time') {
+      insertMessage(aiResponse);
+      var strdate;
+      strdate = aiResponse.queryResult.parameters["date"];
+      formatedsdate = strdate
+          .split('T')[0]; //yesterday........2021-09-24T12:00:00+05:30...string
+      print('formated date is $formatedsdate');
+      // date = DateTime.parse(
+      //     formatedsdate); //argument should be some format..2021-09-24T05:00:00
+    } else if (aiResponse.queryResult.intent.displayName ==
+        'ask-date-time - yes') {
+      String area;
+      String timeFrom;
+      String timeTo;
+      String msg;
+      String date;
+      String checkMess = 'Checking for schedule...';
+      setState(() {
+        messsages.insert(0, {"data": 0, "message": checkMess});
+      });
+
+      final e_userCollection = await Firestore.instance
+          .collection('e_users')
+          .where("registration", isEqualTo: account_num)
+          .getDocuments();
+      e_userCollection.documents.forEach((document) {
+        area = document['area'];
+      });
+      print(area);
+      final scheduleCollection = await Firestore.instance
+          .collection('e_schedules')
+          .where("date", isEqualTo: formatedsdate)
+          .where("areas", arrayContains: area)
+          .getDocuments();
+      if (scheduleCollection.documents.isEmpty) {
+        msg = 'There are no powercut schedule for you. Thank you';
+      } else {
+        scheduleCollection.documents.forEach((document) {
+          timeFrom = document['timeFrom'];
+          timeTo = document['timeTo'];
+          msg =
+              'There is a power scheduled from $timeFrom to $timeTo. Thank you';
+        });
+      }
+
+      setState(() {
+        messsages.insert(0, {"data": 0, "message": msg});
+      });
+    } else {
+      insertMessage(aiResponse);
+      //  botSuggestions(aiResponse.getListMessage());
+    }
   }
 
   final messageInsert = TextEditingController();
@@ -47,7 +171,7 @@ class _GetScheduleState extends State<GetSchedule> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Chat bot",
+          "PowerCut-schedule bot",
         ),
       ),
       body: Container(
@@ -145,16 +269,16 @@ class _GetScheduleState extends State<GetSchedule> {
       padding: EdgeInsets.only(left: 20, right: 20),
       child: Row(
         mainAxisAlignment:
-        data == 1 ? MainAxisAlignment.end : MainAxisAlignment.start,
+            data == 1 ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           data == 0
               ? Container(
-            height: 60,
-            width: 60,
-            child: CircleAvatar(
-              backgroundImage: AssetImage("assets/icons/bot_avatar.png"),
-            ),
-          )
+                  height: 60,
+                  width: 60,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage("assets/icons/bot_avatar.png"),
+                  ),
+                )
               : Container(),
           Padding(
             padding: EdgeInsets.all(10.0),
@@ -174,26 +298,26 @@ class _GetScheduleState extends State<GetSchedule> {
                       ),
                       Flexible(
                           child: Container(
-                            constraints: BoxConstraints(maxWidth: 200),
-                            child: Text(
-                              message,
-                              style: TextStyle(
-                                  color: Colors.white, fontWeight: FontWeight.bold),
-                            ),
-                          ))
+                        constraints: BoxConstraints(maxWidth: 200),
+                        child: Text(
+                          message,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ))
                     ],
                   ),
                 )),
           ),
           data == 1
               ? Container(
-            height: 60,
-            width: 60,
-            child: CircleAvatar(
-              backgroundColor: kPrimaryColor,
-              backgroundImage: AssetImage("assets/icons/user_avatar.png"),
-            ),
-          )
+                  height: 60,
+                  width: 60,
+                  child: CircleAvatar(
+                    backgroundColor: kPrimaryColor,
+                    backgroundImage: AssetImage("assets/icons/user_avatar.png"),
+                  ),
+                )
               : Container(),
         ],
       ),

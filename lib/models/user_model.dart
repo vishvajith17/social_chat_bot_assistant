@@ -22,4 +22,7 @@ class User {
   void setUserId(String uid) {
     this.uid = uid;
   }
+  String getUserLastName() {
+    return this.last_name;
+  }
 }
