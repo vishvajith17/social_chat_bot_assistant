@@ -56,6 +56,12 @@ dependencies:
   flutter_svg: ^0.19.1
   bubble: ^1.1.9+1
 
+  speech_to_text: ^3.1.0
+  highlight_text: ^0.7.2
+  avatar_glow: ^1.2.0
+#  speech_recognition: ^2.0.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,7 +81,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/telecomchatbot-skxa-2b87d5049ce5.json
+    - assets/telecomchatbot-skxa-26c2978d0c99.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
