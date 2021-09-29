@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "social-inquiry-agent-mjra",
+  "private_key_id": "8d46f40ffa5a02052fb928412b0a1b36e3c396b3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCVeADkblfcUWag\n7OD4diMXL0ueyqZy93BmibVgxhADjRzjzeka8eVD/xaEqQrnduxA0jMidx38F5bG\nEfaV90gCdVg9khg81kozdw29iFJ/NYro3UaEAmG0q1f5SLscwiEpZsdm2EPgWgS4\ndjdvcZwr4nKkoamDwYOhdG9RweVvI/+/I3qHnZKSwvVgCJYQ9HtwzaLT50S+nd0f\nJSJWHUyEYH8OWWBAA4+4rgKxR0YT2NcgFmGp1uYY/fc2VDzjeDSh+XiA3xa5dJkn\nzwkUQUVNeIyr2KAO177uE4/TiWd8mH9QE29IK+zzo8SW/J66XPcWzrc3bo5K0ilD\nWqqG9411AgMBAAECggEAPopt5Sb+gGNXC/LR12SnHiZd/91PdD9wupbYW9vEC5ha\nBD++T9XzVlY/99Y7h8pM5HqPhtZMp5S/M7WEdg94A/9RosGkfqAzgAFKsIl/61Zd\n/z3HKalNdKlVMCtsj4XzFj25JaFMFW3VF9HvNCRXck1YJua15TlteHsdsRnuhGfp\n+m6IWbpxW3tPZgAwSaZ+/PhbkHo22EifboYSLEnV1geBz1EXpP4IqzvVaUshnCw/\nMCIoy3oDCGNtci0Rp71l73sgsPB2bAa3QXDP7rC3WdVBccySurOzWDdFNtlS2re9\nPDMa9qbN9cP7+sQdYfDwI7w7i3fPi3VH46Rv50da6QKBgQDHZ53VdqMD7gkFG4cX\n8FSKJtDDyQ5MO8WN11yTatJDnGsppMaAbIwL6fPNfWCQn2kWBXEl3CkhP6TCqdoI\nA8xV2Sb7xMGUuV2R4swA9Ac9g5UliuJzRIWiuX552KK58kj690BnirUMLgqJHtBN\nsF0FOIR+NqURrHxx6SsB8KZB5wKBgQC/5CEvzyMLdfLqJl/c/zvEEo8sXtUX7hQK\nlB2eE6QwNckowxMi1gJWhKd+Siu6QoLhKKxul6MQzKqc7JKq1JbsnI/K1ehzTTW2\nN3mBh8CJdF5qQXMBWW5XK22CJBDgn8bhy+3BpqG4+nUDPl3LL2UkQWSTCcFWMzq+\nFX3zbHuCQwKBgAoyIyDiEw3FYxKuyKaRtFDoES6hniiJud050NL82El6uwQDF99D\nLZoCWWP9cC2U6ROmLZXo/vVjQrJtaueUAiO1mcev1NIc9ErcVOALmj8r9jlYM6H/\nM/IRGAV07UUivVaPw+xHbGB2DjXarH38cZUtwaCOfLw9nJNaf8d2nZmrAoGBALSW\nENVZbnWertjE/HqSiMBhZvQu2wQGPj4mXikh+uaT95ew3hVuqgyaEra7PqOvbFRR\nXtVFR2TL99Runyi9oLtUK86LuJKqGt49HtBT3VJ+fUwqA/1FGJ5YdFqBbpC2TQi6\nTipsks3uhqhizQomtFyGXgwypgxlcebpevrXIPTZAoGASuKaioIqF2+yfko6ci3V\nABnONeYpkWOYnTtQzQK9OgxCWrOFtmOk+Okg/pMAywkApFtTNs9MVImrqphqZYfv\nOiXxOlaoGUPnOgV4jHCIkVjO/xrN0Y9QHwoGae2AOG8ZaLzhlb0d7Z09t11sPTQ9\n6ojaTjM7cqgRJqNgIS0lhKE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "social-inquiry@social-inquiry-agent-mjra.iam.gserviceaccount.com",
+  "client_id": "105668633073761136590",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/social-inquiry%40social-inquiry-agent-mjra.iam.gserviceaccount.com"
+}
