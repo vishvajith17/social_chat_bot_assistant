@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "telecomchatbot-skxa",
+  "private_key_id": "e3fb97a82c94477eeec59c552207be15864a42fe",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC3kMemKQWjQzfu\niK1wQyiGXI8Oyhjy2TuHnVZJrpnG7aWAp/aWeCtfYWYe1sI51SXELisRU0Ya/p1R\ndQJ7AviMCUdoFuJ3fklUjwxjIAgFC1hv3r/2MXCqrnwqgQtX4VQ0gFRVG+709Vsp\ngBX4akddw7kyzo2N8scUf577dtVzUYkGMIr+ldaJUWUU1GWJ/8ypeuqLK6Bvcru/\nzOFbs49wEdAAlAzUZjdv9D2gtsu+50sjAkZkpKIBNtOGIKbIdoPOOT6YSSIcnEFB\nBK5t2Z7jthTtRFbYScLWZEOeMMMk/WF9b9T+axFoOypkVLaB1SLrrrt3ydluq3wL\nfZE/ieTnAgMBAAECggEATMHRef11Sgt1e9zTCTpL28MgXsLLI+EKL27vAehsjO4a\nYm3ZgpnFKSEFHqgWlzA1lo7nm1sC2Y7WIZWX7/ASFhxbK39GO0knSKB4QYrHT7Sq\nyjyOcFfEENrdOLi1EY47M6jlmqEPjoZ6FCRnC3UFWoPZERGlx1FZRY0H4YaTQqCD\n5g1R/MBFxF58jRtzH/adRKbiUf5ZoIdOZxX2m6R3dDIirG28A4AV+a83JMDYq/Iz\n1F2DbC1K8JYzOXVLTRXrJNqgEPK+P7GSrknrHTfEZciqxcA/jgLc2gA4P6Ci8ExA\ne+g0/YnHtnBX+8q/u6m15UAdW0oLQqy6FMUk/RoZQQKBgQDlEYufxttJz1Mhxb5T\nSl4nNox6UrIif2/D76/zPlWWW3newzXxu5WsES/B8Qr8ZZV/VkXBkvwq8VLPUTPq\nESZwaRD1kayJ9eDI/7O9av17W6pRTOpeopk5irQ5jTRPWc0LONxnnOb9k08i4zxV\n3gWzyiL4tvNbzhZSN4GmmxyRbwKBgQDNJbIIwWd/RLvaf7NPAzFsGQaDHrj7UEwR\nRlaSQImzWQjgGg1aH4orPwgvHzYNyAxCMPEO/FMD9GpaFC/EITx+UCQET+++NI9H\nrfknWb+JwKWPjUQimZX6qJJPy1N+Nddb+8dlZ84W5M1nPJ0b3Mf7yha9rUz1Aexe\n1muNWo+4CQKBgQCurOVyzlnz+9Phwf+zVddcQZ13vc22vsTEfecHLrZnNJRHSUa+\nchPdJTHsy1lcRD5u3qPMy7/dIy7Jhpt21uMf/w5+pDoU7dkejNZMD+UBh1HmMyfZ\nSFZdaaaq6EFGbS0NbKutmxkNrqI+8VbWB7sDcZWfYStMC2g8A7WrDUcIowKBgQC/\nQiGVoBqJwN8SenQFegidq0cy/3Wed+IzSMx1Vc4LczqfFCrWlwkOAJn0tLiEaLll\nDJPxULVkvn5YtPFDfWkUqkqp6oytW/so7L2ZPkcgeobgKugXCfGV24ts8TdKN5As\npbPkir7NAUuusAgZbeDUkjhZZjSVR9HDKUzkYEYVYQKBgHoHROf8eP3RDg9//mUJ\nyvBVjbuPwNUVtVrW5dSqM7pXkghzhuKi7babuiPsHKJ80zfL1v0NaPfR1cKnLgGM\nlWhCA3S3NI0GpX8rR6t08HqXUpCsMTyIIW1rYZ5ReH7e6wRVrESxorDQwUGgDoGD\nJrVWB/DAcx34NLf+Du8jBSPB\n-----END PRIVATE KEY-----\n",
+  "client_email": "dialogflow4@telecomchatbot-skxa.iam.gserviceaccount.com",
+  "client_id": "104911197377711659480",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflow4%40telecomchatbot-skxa.iam.gserviceaccount.com"
+}
