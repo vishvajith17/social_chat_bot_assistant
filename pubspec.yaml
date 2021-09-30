@@ -3,7 +3,7 @@ description: A new Flutter application.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -23,7 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -65,7 +64,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -75,12 +73,18 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+
     - assets/transport-agent-gpgv-149fd6638fbf.json
+    #transport
     - assets/services/transport-agent-lost-something.json
     - assets/lost-something-plgg-678667f69a6c.json
     - assets/transport-complain-rsfc-fd57290e6480.json
     - assets/transport-schedule-jsoj-cd586213a3d8.json
-
+    #electricity
+    - assets/telecomchatbot-skxa-2b87d5049ce5.json
+    - assets/electricity-other-complai-tsdh-3a6737d1a7a7.json
+    - assets/electricity-power-schedul-tsbv-701136c4a6d8.json
+    - assets/electricity-sudden_power_failure.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -96,7 +100,7 @@ flutter:
   fonts:
     - family: Lobster
       fonts:
-       - asset: fonts/Lobster-Regular.ttf
+        - asset: fonts/Lobster-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

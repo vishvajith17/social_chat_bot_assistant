@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "electricity-other-complai-tsdh",
+  "private_key_id": "3a6737d1a7a7bdaeff1d3a99bef0a9b0d2b83bc7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCb8HsXeuNzYDrc\nwqcJDyu5cRH16ZG2wImZrlu4V4y1YymbP7K78CPaUFFxhSHOh26nWodRfkL72ArV\nuxyA/HZl4nbOuqUo9y47Cn5t1uXeRc20w9SVplRmylSGyGe38mDzCIRm2iYHQ88M\nwM2P4JbAL7cECXCn1M2vSnKjmlalNCpBOdc9WC4jDTXcMtLP5aZPgwxB/AqBFgvT\nuQQBN6jNsLWXXep0JkjaAa1Da3LnJRrEDxoIFDeA6QPpHlyBKuHZa1OG8gyLLSVr\n/K6HkS7vA1GUTCBQ/CXJNic9+9eSvIju3TGD1dflVWFWssgWMdSAsLN318a8de/3\nzlhsDfO1AgMBAAECggEAHXwsTh2Alc93ecf9bOdXMWZpirmqAWfo7KvM8G9vbdms\n44u5CDOpF82xhJkzcflmKRMjPHu2/ycTr2OEiXgTDAM0yzR756HLNkMu8iZcyvkg\nYuJXVx9+3Hu73UtV3zBfd/yfilILuDpwUx0+kQqafobXIFaHnFhOtusI/5m+cdh+\nRWmP+8/TYM96IeE1cjvz0O9Y3DPYZIYdBtalpS5FN+mkjsn7fWm5gbG5zu4SMynl\nxtyjrqHyn8cvVwlb+qSZuVQ4ej2odt8a3d2LeU6HoBg7R2X/OOnYtUXA8JfWUBOv\nAsWUqQrf3cSjIZB/kM49WECnao3zp8b1NQq2q7HqcQKBgQDUS6uMrBj135n/jA7s\niKlxMyFHxNIVXRmWhBSZ1R1blyfrozKfKr3nn9HGsxghquNTgIW9QkY0SE5XWK5m\nRwuqwhcZEX9CIedVzQd41HV/BbQ68dThtHglJoUuDuaKv8D0MQB9lt47nGFDzEfx\nLhdZYKxLOlH8rAG5bF/KZHViEQKBgQC8Cr62dgsJYBIfJFIgnsThbdt1ODyDMaQ+\nYUv+tUzfHN5WiKzB+Br3pX64L7y7XElchjMNwc9Jwu4KaGq8G7slbeFyQQ37Nkzy\n7CWCKUw0vDf6l7esCyCNnAOcGmx6OqI6vKQvx0Y61tF2UCF3eMLZElSp3o5s8dcc\n3Eg5FQcTZQKBgE7o8ZMQRRbfTjaWsNVq1tCk2LH8jroyKNixr5aeiJMK1GPZ/W78\nTCpUVX0uBMI+6tCW7R80CzRTzArbg7ewoL2P91XyEwNZ5ssVsrlO/31/eUaPrTlY\nA3CLqOU91KOuMuKRdEU6VtCBiAXTYMpc/4DRVjmALAlnRhzOE6z/OkKBAoGBAJ7E\nW73m8O6bhPFyUz1jkEvd25ufPchvk4Nv1yBZp2wCDd/2ShcECpDp1JJjC/ENvIs4\na8bDyuc2hJGZE/V7XIn/uogjUVC3ykSZChpaEBO+j20vyE6knnmyLoIQ9WJGO09o\nkyAcGrn3QqeohHlBJxLsnTtHw+1MTBn8C6bWkEDZAoGATzWhklENFSwghoTp2eEM\nF5DuiJFXQ4CmmVqtHKQUHeYwVCNDQEbI0xf0GmpHOdP3n1qgI6RefTP7OkXQgrLu\nSmZU89khw+cLWhyeuiHQjYEyrmLhlMvU8sdFuNc13ynNbOTtp7Ns6jPknuCFgepr\n7G7CDgNYWdL5+KBYP9S2IsI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "electricity-other-complain@electricity-other-complai-tsdh.iam.gserviceaccount.com",
+  "client_id": "115360670422403537354",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/electricity-other-complain%40electricity-other-complai-tsdh.iam.gserviceaccount.com"
+}

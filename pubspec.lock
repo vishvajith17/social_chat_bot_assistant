@@ -209,6 +209,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
+  flutter_dialogflow_v2:
+    dependency: "direct main"
+    description:
+      name: flutter_dialogflow_v2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   flutter_page_indicator:
     dependency: transitive
     description:
