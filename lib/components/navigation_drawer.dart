@@ -11,12 +11,15 @@ import 'package:social_chat_bot_assistant/services/auth_service.dart';
 class NavigationDrawerWidget extends StatelessWidget {
   final AuthService _authService = AuthService();
   final padding = EdgeInsets.symmetric(horizontal: 20);
+
   @override
   Widget build(BuildContext context) {
+    final userDetails = _authService.currentUser();
+    print(userDetails);
     final name = 'name';
     final email = 'email';
     final urlImage =
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80';
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxHWFss7T4f3QifjwCTUJ-VGqffPBBDI1VlQ&usqp=CAU';
 
     return Drawer(
       child: Material(

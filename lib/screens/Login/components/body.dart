@@ -73,6 +73,7 @@ class _BodyState extends State<Body> {
                               setState(() {
                                 loading = true;
                               });
+
                               dynamic result = await _authService
                                   .signInWithEmailAndPassword(email, password);
                               if (result == null) {

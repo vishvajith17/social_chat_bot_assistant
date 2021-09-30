@@ -57,4 +57,14 @@ class DatabaseService {
         .snapshots()
         .map(_userDataFromSnapshot);
   }
+
+  /*Future<void> getData() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await chatbotCollection.;
+
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    print(allData);
+  }*/
 }

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "transport-complain-rsfc",
+  "private_key_id": "fd57290e6480ce7c2bced2f3db73b4908a6276e3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCzPX4jvMjjroTa\nM04nbj0W+zDGyIYrVwxxRUEnTV65BGGgn3GnEEyvLr0dIYP+qbOjrueaBetiHS6P\nc6c0l7imVy0ABWvQfO0ZZKm6gYGqb2Xf6ac7F1+LMv3jJajN1OJCJSQ6JoMDVX4+\nUobfRlrEEfV8nQHHD64jHAY7jIuGE9eur+OAHDlV1YrQSeI5C/EXs+1Pi9dyPHM9\nvDqRv0gr8FKBHdA/kXZnhS9GNvFNVi08BrxQbl3bQU0bmkAkxjKrWgr0sj361A0G\ninGtN9gS3nSXcZp0Z8ADwJwCYgSdxVBXcqVkCSwF8l1FMgr7Zh+mwFrj+FaR6NFM\nuOF4rFunAgMBAAECggEAT8kFH7pWwAa8y3ZACUxIdDTfOvUiyCMI/ljCDlEh44DA\nRmQDDscyI17OPqvfGhqHRMrD/Gs7ImL0CVYFbWNGBgFTHinLmrQpRH7rEIK6adgJ\nhJj44FRgqtFJc3WdhPYIu0HWNO5UrkS9m9dXgwbJu3J1EIHBO09PCADfA13l84md\nxZXJYS2t0z+qZdrbTu2Ft31bfbOicnVoH72989+w8Gv9f+DTX72yiaRCPwXBnDPE\nwwdENnG8VWPlq1xgNZrLSGg618EgpdQrxbSDAtu3eaOCmwnBgn7Rxf5uZSHPozCr\nrziOxZKiyM2O+VuldjSx0rXOOzATg9zHI+tX2G9aqQKBgQDemBoBoeGi1xk/7o5x\nxudbOcMpb65yp0nXWbH00CXA2D8Xtujfc5PwS9t6U/8hHWH3a5bhqheKNAqBfMqq\nhA9CbwfjiSFGjjRDANaQbGfB9Awk6cb+alLKP1gWaypddLZMZJ0cEFoibh8gnunW\nKryQ7fUxdg9z7hXlTYQZjYz0PwKBgQDOI8P+LYOTvp7T7mNxTsiycsL6ztFJaakf\nhTJozvsd8TqLEFq5p/ZcVrAeRBIHljJyEVtkZSoxVW8mgTlpIMK5iXBcbrQoGy1Q\nNlMYIHb6avK5sqOP/jJ15NcfmAOfD4mA3f6uDhz/rEuMp820Fxi7jl9Ll4vVbdtq\nmiGjtXEemQKBgQDEY/JeClOndpxCedmXrOQm6rmz72M8qThPFkYaNyN4F9Liu3CO\n5cxasLL+JOnub5wlzfkbNRT7zJqQUGgHNei4tnmBWVXQiFq32x9z4RFSYF3um4wE\noA5XfrfbX8XLGtRUZljvj8XWps4z28F4QdCJFknEz+MmZ6NN4qxwVyFLxQKBgQCq\nroKB2z2u/46S/Dfqgck7uDopYUV4+7vFFYx/q6HRUQOgUZJNVv1tx3lcFhC3p21t\ndWGu5vTglFTMFQNsQGv7JAmc/yy8aIREfjafK4JYJmWDzJ4Rg/BUHX7h8gRNl5fK\n1AUkKRtpt0d21xpDmzwnT+Mnu/tUZPngcm6YFovrQQKBgQDUIPgKJjVAV3Ld8kW7\n4iDgTGRrCrJmFRaRhvc8yIoNQ/YZK2ZbeAPVAbz52cL2/0WVPfOcG73uFQsQ3Pno\ncm68yInfLBTu2T0qj1EGHFTT0hpPLvxz2UrR31LfIDkmvUDkqGMXo4oNhiZNasAE\nMF5YbNea4SVyuhe3b3BQBiuzSQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "transport-complaint-chatbot@transport-complain-rsfc.iam.gserviceaccount.com",
+  "client_id": "108501586704317771927",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/transport-complaint-chatbot%40transport-complain-rsfc.iam.gserviceaccount.com"
+}

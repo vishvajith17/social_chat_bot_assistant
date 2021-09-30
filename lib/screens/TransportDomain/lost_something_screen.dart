@@ -34,7 +34,7 @@ class _LostSomethingState extends State<LostSomething> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "transport Bot",
+          "Let's find it",
         ),
         backgroundColor: kPrimaryColor,
       ),
@@ -81,7 +81,7 @@ class _LostSomethingState extends State<LostSomething> {
                               messsages.insert(0,
                                   {"data": 1, "message": messageInsert.text});
                             });
-                            print(messageInsert.text);
+                            print(messageInsert.value);
                             response(messageInsert.text);
                             messageInsert.clear();
                           }

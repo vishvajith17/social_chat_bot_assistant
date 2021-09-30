@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:social_chat_bot_assistant/components/rounded_button.dart';
 import 'package:social_chat_bot_assistant/screens/DomainPage/components/background.dart';
+import 'package:social_chat_bot_assistant/screens/TransportDomain/lost_something.dart';
 import 'package:social_chat_bot_assistant/screens/TransportDomain/lost_something_screen.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:social_chat_bot_assistant/screens/TransportDomain/transport_complaint.dart';
+import 'package:social_chat_bot_assistant/screens/TransportDomain/transport_complaint_screen.dart';
+import 'package:social_chat_bot_assistant/screens/TransportDomain/transport_schedule.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -24,13 +28,27 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             RoundedButton(
+              text: "Complaint",
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BotChatComplaint();
+                    },
+                  ),
+                );
+              },
+            ),
+            SizedBox(height: size.height * 0.03),
+            RoundedButton(
               text: "Lost Something?",
               press: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LostSomething();
+                      return BotChat();
                     },
                   ),
                 );
@@ -44,21 +62,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LostSomething();
-                    },
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: size.height * 0.03),
-            RoundedButton(
-              text: "Complains",
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LostSomething();
+                      return BotChatSchedule();
                     },
                   ),
                 );

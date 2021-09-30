@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:social_chat_bot_assistant/models/user_model.dart';
 import 'package:social_chat_bot_assistant/services/database.dart';
@@ -62,5 +63,14 @@ class AuthService {
       print(error.toString());
       return null;
     }
+  }
+
+  Future currentUser() async {
+    final user = await FirebaseAuth.instance.currentUser();
+    final userData = await Firestore.instance
+        .collection('clients')
+        .document((user.uid))
+        .get();
+    return userData;
   }
 }
