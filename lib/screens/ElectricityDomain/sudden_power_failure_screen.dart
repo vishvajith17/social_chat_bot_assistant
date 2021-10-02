@@ -8,16 +8,6 @@ import 'package:social_chat_bot_assistant/constants.dart';
 
 class SuddenPowerFailure extends StatefulWidget {
   SuddenPowerFailure({Key key, this.title}) : super(key: key);
-
-// This widget is the home page of your application. It is stateful, meaning
-// that it has a State object (defined below) that contains fields that affect
-// how it looks.
-
-// This class is the configuration for the state. It holds the values (in this
-// case the title) provided by the parent (in this case the App widget) and
-// used by the build method of the State. Fields in a Widget subclass are
-// always marked "final".
-
   final String title;
 
   @override
@@ -25,14 +15,9 @@ class SuddenPowerFailure extends StatefulWidget {
 }
 
 class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
-  int account_num = null;
-  DateTime date_time = null;
-  String phone_number = null;
+  int account_num;
+  DateTime date_time;
   String formatedsdatetime;
-  String status = 'pending';
-  String description = 'reported by customers';
-  DateTime createdAt = DateTime.now();
-  
 // for suggestions
   List<String> suggestions = [];
   void botSuggestions(List<dynamic> responses) {
@@ -56,8 +41,6 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
   // multiple response
   void insertMessage(AIResponse aiResponse) {
     for (var i = 0; i < aiResponse.getListMessage().length; i++) {
-      print(i);
-
       setState(() {
         messsages.insert(0, {
           "data": 0,
@@ -68,6 +51,55 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
     }
   }
 
+  //-------------update database
+  void addPowerCut(
+      int account_num, DateTime date_time, final user, final userName) async {
+    String confirmMess =
+        'Confirming your complain...\nAccount number: $account_num \nDate-time: $date_time \nComplainer: $userName';
+    setState(() {
+      messsages.insert(0, {"data": 0, "message": confirmMess});
+    });
+    String reference;
+    // reference_no = DateTime.now().millisecondsSinceEpoch;
+    DocumentReference complainQuery =
+        await Firestore.instance.collection('electricity_sudden_powercut').add({
+      'account_number': account_num,
+      'date_time': date_time,
+      'user': user.uid,
+      'status': 'pending',
+      'description': 'reported by customers',
+      'createdAt': DateTime.now()
+    });
+    reference = complainQuery.documentID;
+
+    String mess =
+        'Thank you! your complain is taken. Hope it will be fixed soon. Your reference id is $reference';
+    setState(() {
+      messsages.insert(0, {"data": 0, "message": mess});
+    });
+  }
+
+  //-------------
+  DateTime formatDate(var strdatetime) {
+    if (strdatetime.runtimeType == String) {
+      formatedsdatetime = strdatetime
+          .split('+')[0]; //yesterday........2021-09-24T12:00:00+05:30...string
+    } else if (strdatetime.containsKey('date_time')) {
+      //today 2pm.....{ "date_time": "2021-09-25T14:00:00+05:30" }...._InternalLinkedHashMap<String, dynamic>
+      formatedsdatetime = strdatetime['date_time'].split('+')[0];
+    } else if (strdatetime.containsKey('endDateTime') ||
+        strdatetime.containsKey('startDateTime')) {
+      //yesterday morning ...{ "startDateTime": "2021-09-24T05:00:00+05:30", "endDateTime": "2021-09-24T11:59:59+05:30" }
+      // print(strdatetime['startDateTime'].split('+')[0]);
+      formatedsdatetime = strdatetime['startDateTime'].split('+')[0];
+    }
+    // print('formated date is $formatedsdatetime');
+    date_time = DateTime.parse(
+        formatedsdatetime); //argument should be some format..2021-09-24T05:00:00
+    //print('final date time is $date_time');
+    return date_time;
+  }
+
 //--------------------
   void response(query) async {
     final user = await FirebaseAuth.instance.currentUser();
@@ -76,7 +108,7 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
         .document((user.uid))
         .get();
     final userName = userData['last_name'];
-    // final phone_number = userData['phone_number'];
+
     //CollectionReference complaintCollection =
     // await Firestore.instance.collection('electricity_sudden_powercut');
 
@@ -87,8 +119,6 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
     Dialogflow dialogflow =
         Dialogflow(authGoogle: authGoogle, language: Language.english);
     AIResponse aiResponse = await dialogflow.detectIntent(query);
-//---------------------------------------
-
 //-----------------------------------------
     // final List<Context> outputContexts = aiResponse.queryResult.outputContexts;
     //print(aiResponse.queryResult.);
@@ -104,8 +134,6 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
         });
       });
       for (var i = 1; i < aiResponse.getListMessage().length; i++) {
-        print(i);
-
         setState(() {
           messsages.insert(0, {
             "data": 0,
@@ -114,7 +142,6 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
           });
         });
       }
-      print(createdAt);
     } else if (aiResponse.queryResult.intent.displayName == 'ask-account-num') {
       insertMessage(aiResponse);
       account_num =
@@ -124,64 +151,17 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
       var strdatetime;
       strdatetime = aiResponse.queryResult.parameters["date-time"];
       //print(strdatetime.runtimeType);
-
-      if (strdatetime.runtimeType == String) {
-        formatedsdatetime = strdatetime.split(
-            '+')[0]; //yesterday........2021-09-24T12:00:00+05:30...string
-      } else if (strdatetime.containsKey('date_time')) {
-        //today 2pm.....{ "date_time": "2021-09-25T14:00:00+05:30" }...._InternalLinkedHashMap<String, dynamic>
-        formatedsdatetime = strdatetime['date_time'].split('+')[0];
-      } else if (strdatetime.containsKey('endDateTime') ||
-          strdatetime.containsKey('startDateTime')) {
-        //yesterday morning ...{ "startDateTime": "2021-09-24T05:00:00+05:30", "endDateTime": "2021-09-24T11:59:59+05:30" }
-        // print(strdatetime['startDateTime'].split('+')[0]);
-        formatedsdatetime = strdatetime['startDateTime'].split('+')[0];
-      }
-      // print('formated date is $formatedsdatetime');
-      date_time = DateTime.parse(
-          formatedsdatetime); //argument should be some format..2021-09-24T05:00:00
-      //print('final date time is $date_time');
-    } else if (aiResponse.queryResult.intent.displayName == 'ask-phone-no') {
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message": aiResponse
-              .getListMessage()[0]["text"]["text"][0]
-              .toString()
-              .replaceAll('date-time', formatedsdatetime)
-        });
-      });
-      // insertMessage(aiResponse);
-      phone_number = aiResponse.queryResult.parameters['phone_number'];
+      date_time = formatDate(strdatetime);
+    } else if (aiResponse.queryResult.intent.displayName == 'ask-all') {
+      insertMessage(aiResponse);
+      account_num =
+          int.parse(aiResponse.queryResult.parameters['account_number']);
+      var strdatetime;
+      strdatetime = aiResponse.queryResult.parameters["date-time"];
+      date_time = formatDate(strdatetime);
     } else if (aiResponse.queryResult.intent.displayName ==
-        'ask-phone-no - yes') {
-      String confirmMess =
-          'Confirming your complain...\nAccount number: $account_num \nDate-time: $date_time \nPhone number: $phone_number \nComplainer: $userName';
-      setState(() {
-        messsages.insert(0, {"data": 0, "message": confirmMess});
-      });
-      String reference;
-      // reference_no = DateTime.now().millisecondsSinceEpoch;
-      DocumentReference complainQuery = await Firestore.instance
-          .collection('electricity_sudden_powercut')
-          .add({
-        'account_number': account_num,
-        'date_time': date_time,
-        'phone_number': phone_number,
-        'user': user.uid,
-        'status': status,
-        'description': description,
-        'createdAt': DateTime.now()
-      });
-      reference = complainQuery.documentID;
-      // .then((value) => {reference = value.documentID, print(reference)})
-      // .catchError((error) => print(error));
-
-      String mess =
-          'Thank you! your complain is taken. Hope it will be fixed soon. Your reference id is $reference';
-      setState(() {
-        messsages.insert(0, {"data": 0, "message": mess});
-      });
+        'ask-date-time - yes') {
+      addPowerCut(account_num, date_time, user, userName);
     } else {
       insertMessage(aiResponse);
       //  botSuggestions(aiResponse.getListMessage());
@@ -225,13 +205,6 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
             ),
             Container(
               child: ListTile(
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.camera_alt,
-                    color: Colors.greenAccent,
-                    size: 35,
-                  ),
-                ),
                 title: Container(
                   height: 35,
                   decoration: BoxDecoration(
