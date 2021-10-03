@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:social_chat_bot_assistant/components/rounded_button.dart';
 import 'package:social_chat_bot_assistant/screens/DomainPage/components/background.dart';
 import 'package:social_chat_bot_assistant/screens/TransportDomain/lost_something.dart';
-import 'package:social_chat_bot_assistant/screens/TransportDomain/lost_something_screen.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:social_chat_bot_assistant/screens/TransportDomain/transport_complaint.dart';
-import 'package:social_chat_bot_assistant/screens/TransportDomain/transport_complaint_screen.dart';
 import 'package:social_chat_bot_assistant/screens/TransportDomain/transport_schedule.dart';
 
 class Body extends StatelessWidget {
@@ -23,7 +21,7 @@ class Body extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: size.height * 0.03),
             SvgPicture.asset(
-              "assets/icons/login.svg",
+              "assets/icons/autobus.svg",
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),

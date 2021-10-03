@@ -38,6 +38,7 @@ class _ChatState extends State<BotChat> {
   String get_off_place = null;
   String vehicle_details = null;
   String status = "pending";
+  String description = null;
 
   //review data
   int rate = null;
@@ -59,6 +60,12 @@ class _ChatState extends State<BotChat> {
     final client_phone_number = userData['phone_number'];
     final client_NIC = userData['nic'];
     final client_email = userData['email'];
+
+    final lostLog = await Firestore.instance
+        .collection('transportLost')
+        .where('email', isEqualTo: client_email)
+        .getDocuments();
+
     CollectionReference transportLostData =
         await Firestore.instance.collection('transportLost');
     print(userName);
@@ -85,34 +92,18 @@ class _ChatState extends State<BotChat> {
         });
       });
 
+      setState(() {
+        messsages.insert(0, {
+          "data": 0,
+          "message":
+              aiResponse.getListMessage()[1]["text"]["text"][0].toString()
+        });
+      });
+
       print(aiResponse
           .getListMessage()[0]["text"]["text"][0]
           .toString()
           .replaceAll('user', userName));
-    } else if (aiResponse.queryResult.intent.displayName ==
-        'Complain - no - payment - issue - fallback - select.number') {
-      for (var i = 0; i < aiResponse.getListMessage().length; i++) {
-        print(i);
-        if (i == 0) {
-          setState(() {
-            messsages.insert(0, {
-              "data": 0,
-              "message": aiResponse
-                  .getListMessage()[0]["text"]["text"][0]
-                  .toString()
-                  .replaceAll(': 2', ': $reference_no')
-            });
-          });
-        } else {
-          setState(() {
-            messsages.insert(0, {
-              "data": 0,
-              "message":
-                  aiResponse.getListMessage()[1]["text"]["text"][0].toString()
-            });
-          });
-        }
-      }
     } else {
       for (var i = 0; i < aiResponse.getListMessage().length; i++) {
         print(i);
@@ -154,6 +145,43 @@ class _ChatState extends State<BotChat> {
       if (aiResponse.queryResult.intent.displayName ==
           'travel-vehicle_details') {
         vehicle_details = aiResponse.queryResult.parameters['vehicle_details'];
+      }
+      if (aiResponse.queryResult.intent.displayName == 'log') {
+        if (lostLog.documents.isEmpty) {
+          setState(() {
+            messsages.insert(
+                0, {"data": 0, "message": 'you dont have inquiry log history'});
+          });
+        } else {
+          lostLog.documents.forEach((document) {
+            reference_no = document['reference_no'];
+            lost_date = document['lost_date'];
+            lost_items = document['lost_items'];
+            status = document['status'];
+            if (document['description'] == null) {
+              description = "not provided";
+            } else {
+              description = document['description'];
+            }
+
+            setState(() {
+              messsages.insert(0, {
+                "data": 0,
+                "message": 'reference no:$reference_no  lost items:$lost_items '
+                    'date:$lost_date             '
+                    'status:$status                                          '
+                    'description:$description'
+              });
+            });
+          });
+        }
+        setState(() {
+          messsages.insert(0, {
+            "data": 0,
+            "message":
+                'If you want to log a inquiry about lost item type "Lost", to exit chat type "Exit" '
+          });
+        });
       }
       if (aiResponse.queryResult.intent.displayName == 'confirm - yes') {
         reference_no = DateTime.now().millisecondsSinceEpoch;

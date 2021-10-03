@@ -174,7 +174,7 @@ class _BodyState extends State<Body> {
                       );
                     },
                   ),
-                  OrDivider(),
+                  /*OrDivider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -191,7 +191,7 @@ class _BodyState extends State<Body> {
                         press: () {},
                       ),
                     ],
-                  )
+                  )*/
                 ],
               ),
             ),

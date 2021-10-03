@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_chat_bot_assistant/components/navigation_drawer.dart';
+import 'package:social_chat_bot_assistant/screens/Help/components/body.dart';
 
 class HelpScreen extends StatelessWidget {
   @override
@@ -9,6 +10,7 @@ class HelpScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('HELP'),
       ),
+      body: Body(),
     );
   }
 }

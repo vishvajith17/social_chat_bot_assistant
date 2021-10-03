@@ -79,6 +79,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/icons/bus.svg
     - assets/telecomchatbot-skxa-26c2978d0c99.json
 
     - assets/transport-agent-gpgv-149fd6638fbf.json

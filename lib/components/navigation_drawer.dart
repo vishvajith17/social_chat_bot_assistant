@@ -16,8 +16,8 @@ class NavigationDrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final userDetails = _authService.currentUser();
     print(userDetails);
-    final name = 'name';
-    final email = 'email';
+    final name = 'WELCOME';
+    final email = '';
     final urlImage =
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxHWFss7T4f3QifjwCTUJ-VGqffPBBDI1VlQ&usqp=CAU';
 

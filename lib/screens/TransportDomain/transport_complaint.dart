@@ -38,6 +38,7 @@ class _ChatState extends State<BotChatComplaint> {
   String vehicle_details = null;
   String complaint = null;
   String status = "pending";
+  String description = null;
 
   //review data
   int rate = null;
@@ -55,10 +56,17 @@ class _ChatState extends State<BotChatComplaint> {
         .collection('clients')
         .document((user.uid))
         .get();
+
     final userName = userData['last_name'];
     final client_phone_number = userData['phone_number'];
     final client_NIC = userData['nic'];
     final client_email = userData['email'];
+
+    final complaintLog = await Firestore.instance
+        .collection('transportComplaint')
+        .where('email', isEqualTo: client_email)
+        .getDocuments();
+
     CollectionReference transportComplaintData =
         await Firestore.instance.collection('transportComplaint');
     print(userName);
@@ -82,6 +90,13 @@ class _ChatState extends State<BotChatComplaint> {
               .getListMessage()[0]["text"]["text"][0]
               .toString()
               .replaceAll('user', userName)
+        });
+      });
+      setState(() {
+        messsages.insert(0, {
+          "data": 0,
+          "message":
+              aiResponse.getListMessage()[1]["text"]["text"][0].toString()
         });
       });
 
@@ -132,6 +147,41 @@ class _ChatState extends State<BotChatComplaint> {
         travel_medium =
             aiResponse.queryResult.parameters['travel-medium-train'];
         print(travel_medium);
+      }
+      if (aiResponse.queryResult.intent.displayName == 'log') {
+        if (complaintLog.documents.isEmpty) {
+          setState(() {
+            messsages.insert(0,
+                {"data": 0, "message": 'you dont have complaint log history'});
+          });
+        } else {
+          complaintLog.documents.forEach((document) {
+            reference_no = document['reference_no'];
+            complaint = document['complaint'];
+            status = document['status'];
+            if (document['description'] == null) {
+              description = "not provided";
+            } else {
+              description = document['description'];
+            }
+
+            setState(() {
+              messsages.insert(0, {
+                "data": 0,
+                "message": 'reference no:$reference_no  complaint:$complaint '
+                    'status:$status                                          '
+                    'description:$description'
+              });
+            });
+          });
+        }
+        setState(() {
+          messsages.insert(0, {
+            "data": 0,
+            "message":
+                'If you want to log a complaint type "Complaint", to exit chat type "Exit" '
+          });
+        });
       }
       if (aiResponse.queryResult.intent.displayName == 'bus_number') {
         bus_number = aiResponse.queryResult.parameters['bus_num'];

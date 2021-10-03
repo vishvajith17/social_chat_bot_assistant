@@ -31,6 +31,10 @@ class _ChatState extends State<BotChatSchedule> {
   String travel_medium = null;
   String travel_route_origin = null;
   String travel_route_destination = null;
+  String start_time = null;
+  String end_time = null;
+  String type = null;
+  String name = null;
 
   //review data
   int rate = null;
@@ -59,6 +63,11 @@ class _ChatState extends State<BotChatSchedule> {
         .collection('clients')
         .document((user.uid))
         .get();
+
+    print(travel_medium);
+    print(travel_route_destination);
+    print(travel_route_origin);
+
     final userName = userData['last_name'];
     final client_phone_number = userData['phone_number'];
     final client_NIC = userData['nic'];
@@ -88,35 +97,18 @@ class _ChatState extends State<BotChatSchedule> {
               .replaceAll('user', userName)
         });
       });
+      setState(() {
+        messsages.insert(0, {
+          "data": 0,
+          "message":
+              aiResponse.getListMessage()[1]["text"]["text"][0].toString()
+        });
+      });
 
       print(aiResponse
           .getListMessage()[0]["text"]["text"][0]
           .toString()
           .replaceAll('user', userName));
-    } else if (aiResponse.queryResult.intent.displayName ==
-        'Complain - no - payment - issue - fallback - select.number') {
-      for (var i = 0; i < aiResponse.getListMessage().length; i++) {
-        print(i);
-        if (i == 0) {
-          setState(() {
-            messsages.insert(0, {
-              "data": 0,
-              "message": aiResponse
-                  .getListMessage()[0]["text"]["text"][0]
-                  .toString()
-                  .replaceAll(': 2', ': $reference_no')
-            });
-          });
-        } else {
-          setState(() {
-            messsages.insert(0, {
-              "data": 0,
-              "message":
-                  aiResponse.getListMessage()[1]["text"]["text"][0].toString()
-            });
-          });
-        }
-      }
     } else {
       for (var i = 0; i < aiResponse.getListMessage().length; i++) {
         print(i);
@@ -141,35 +133,51 @@ class _ChatState extends State<BotChatSchedule> {
         if (travel_medium != null &&
             travel_route_origin != null &&
             travel_route_destination != null) {
-          print(transportSchedule
-              .where('medium', isEqualTo: travel_medium)
-              .where('origin', isEqualTo: travel_route_origin)
-              .where('destination', isEqualTo: travel_route_destination)
-              .snapshots());
-        }
-
-        for (var i = 0; i < aiResponse.getListMessage().length; i++) {
-          print(i);
-          if (i == 0) {
+          final scheduleCollection = await Firestore.instance
+              .collection('transportSchedule')
+              .where("medium", isEqualTo: travel_medium)
+              .where("destination", isEqualTo: travel_route_destination)
+              .where("origin", isEqualTo: travel_route_origin)
+              .getDocuments();
+          print(travel_route_destination);
+          if (scheduleCollection.documents.isEmpty) {
             setState(() {
-              messsages.insert(0, {
-                "data": 0,
-                "message": aiResponse
-                    .getListMessage()[0]["text"]["text"][0]
-                    .toString()
-                    .replaceAll('ref.no', ': $reference_no')
-              });
+              messsages
+                  .insert(0, {"data": 0, "message": 'No Schedule available'});
             });
           } else {
-            setState(() {
-              messsages.insert(0, {
-                "data": 0,
-                "message":
-                    aiResponse.getListMessage()[1]["text"]["text"][0].toString()
+            scheduleCollection.documents.forEach((document) {
+              travel_medium = document['medium'];
+              start_time = document['start_time'];
+              end_time = document['end_time'];
+              type = document['type'];
+              name = document['name'];
+
+              setState(() {
+                messsages.insert(0, {
+                  "data": 0,
+                  "message": 'Medium: $travel_medium | Name: $name | Type: $type                                  '
+                      'Origin: $travel_route_origin -> Start Time: $start_time                    '
+                      'Destination: $travel_route_destination -> Arrived Time: $end_time'
+                });
               });
+              print(travel_medium);
+              print(travel_route_destination);
+              print(travel_route_origin);
+              print(
+                  'Medium: $travel_medium | Name: $name Type: $type |                       '
+                  'Origin: $travel_route_origin Start Time: $start_time  |      '
+                  'Destination: $travel_route_destination Arrived Time: $end_time');
             });
           }
         }
+        setState(() {
+          messsages.insert(0, {
+            "data": 0,
+            "message":
+                'If you want to know any other schedule. Type "schedule". If you want to end type "exit"'
+          });
+        });
       }
 
       print(aiResponse.getListMessage().length);
