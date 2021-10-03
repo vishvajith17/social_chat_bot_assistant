@@ -50,6 +50,7 @@ class _ChatState extends State<BotChat> {
   String userName;
   String user_id;
   String phone_number;
+  String email;
   int queryPhoneNo;
   void response(query) async {
 
@@ -62,6 +63,7 @@ class _ChatState extends State<BotChat> {
     print(balanceCollection['balance']);
     user_id = user.uid;
     userName = userData['last_name'];
+    email = userData['email'];
     phone_number = userData['phone_number'];
     CollectionReference complaintData = await Firestore.instance.collection('telecomComplaint');
     print(phone_number);
@@ -103,7 +105,7 @@ class _ChatState extends State<BotChat> {
     else if(aiResponse.queryResult.intent.displayName ==  'Complain - no - issue - custom'){
       complaint = query;
       reference_no = DateTime.now().millisecondsSinceEpoch;
-      complaintData.add({'complaint': query, 'reference_number': reference_no, 'phone_number': phone_number, 'date': DateTime.now(), 'status': 'pending', 'user_id':user_id,
+      complaintData.add({'complaint': query, 'reference_number': reference_no, 'phone_number': phone_number, 'date': DateTime.now(), 'status': 'pending', 'user_id':user_id,'email':email ,
       }).then((value) => print ('User Added')).catchError((error) => print('failed to add user: $error'));
       setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString()});});
     }

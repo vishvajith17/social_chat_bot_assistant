@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_chat_bot_assistant/constants.dart';
 import 'package:social_chat_bot_assistant/models/user_model.dart';
@@ -11,8 +13,20 @@ import 'package:social_chat_bot_assistant/services/auth_service.dart';
 class NavigationDrawerWidget extends StatelessWidget {
   final AuthService _authService = AuthService();
   final padding = EdgeInsets.symmetric(horizontal: 20);
+
+  // var userName;
+  // var phone_number;
+
+  //   void response() async {
+  //   final user = await FirebaseAuth.instance.currentUser();
+  //   final userData = await Firestore.instance.collection('clients').document((user.uid)).get();
+  //   userName = userData['last_name'];
+  //   phone_number = userData['email'];
+  // }
+
   @override
   Widget build(BuildContext context) {
+
     final name = 'name';
     final email = 'email';
     final urlImage =

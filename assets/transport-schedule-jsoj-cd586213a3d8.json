@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "transport-schedule-jsoj",
+  "private_key_id": "cd586213a3d88ee50cb804a4ff8e6d6f5591a2c0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCZk0mLzr/oP2Yo\njfnlvp2QTpsCLe6Lg2XbnxjISeFOESuYxImngyM1FQYXQeLxYU1xKUYqSlYPHcOB\nuyIT9NPBg1LoJO7KUhgfLwV3O8/CbKaopZN/vXmTKNP1NrUsh9nohAtzX0kontIS\n1OaIVIpDnq16A45cgOnllFb8y6ymuJZZovUj2KtbPMYcdHYqoWfWONtIPrde7Jx7\nNTBwlRgVw/ql6pTpGLiVHiTFDl4PKOHwkJdC2eLMrQpDOQQPK1GuFrFE/EtxZQqP\nXdHQXscZmDIaVvJ4weNTS4I8/ROT7ire/tqb5TbXnB6XAVMHhNtWjM2xh8gmO6yI\nSrHDAQWVAgMBAAECggEAJZBPJvE1I3uOY1EG1Nkg9REk/Q17EYjcOzHY//SCNXQh\ns8Yu3VhIHk28Jagp+FyScqFj1ihEkIH5Nhwto6/4s5aJitqtxbL6z3XS4m0wzh+B\nTDLjtxUDTalo3su42OGJvUO/AUNHQ7ZFL/H/SU1UXGHNkNCZ26p0i4ETHdY7rrOK\njPE0euTFGdD4JI2JMwTU5p27o0MXH9jgbbDG1ivcih/FsPns4L+DYF5OWwZwAORA\n2km0Tsg6SXHD8b8wC4ayghHxMkKZkiRQC76YaQ7RDwACmWoB4WZhyNcTEjpUKspz\nvktgpDZ1QBLwV/PPwqBhmbr3gdRMxeZVeDfJn7AU6QKBgQDO5Gpganlf55NTaOkO\nYNGIRcorvTg84u4gITi5dia0/swWEPuQ0VgM6YNKFtRy5YlN2ZxFzxnRT+eMV/kL\n0cQtL9VJZiQS3fJOC3YvK0VrYzWOFh9MIFgm9zHnhqYBNLDriDn+2yDpHH87bCxZ\nJE4qQZRveOj/9VR7EHmIcDJ81wKBgQC+ByCaaGqBfDBU8Ne/CjPpOAtAiQiMY0W9\nX11lA0R4ZN2DaHJ724Hf1JbRdec1j9PeV38WpIOnCUZxoToADcSx0OCbYvvuyE+Z\naYMV28LMdsaGGQhblUE3gFacgxX4tMwC3UhnoBMTl2aZNjM8aWx5qf5ijWRzIZ44\nW7i60a13cwKBgQCXIq8+/ajq0V2DShkuIrYOSYU1zIV/nPr9R6eLe+8suxFVcVSE\nZxleXVtGTUUnJdzWnQgWywJ+MFPi5wUMiFE5/T5e3xmtGqt+LctJC+ArYY7m2+xD\nDUG4PU4cZvVv3hD8DkjnjyYMhH/BZfVDrUzYe422nOoAyTPMrq1JaUTIgwKBgGlx\nMQEcwUR6MaNgRIan1agqRewYXZrwlsj+uqcLShn39gYtlaDua0FVCB7P6myJE0oD\niOx6eubbua/hg3p2KVd1jLwMD7kugySgLHGbkJq9qWjNSRrwVdDDMMwF3NI1GCLa\nwItngk5Tq0WGkqWJ5fwYfKQYys0rsUyacIWRRUzLAoGBAM4fw7hHNn5NRG6vIfWh\ncR2Gh9c1JXY3KAgDTR5/SrcmpSX5hiEMdw9WGoYyRdo6b1+pkzFOtiDyRPSe/i13\n+RPYkdLpehQYO6rigeqr74//y6xVdUi0sFnTBz0ZsnQKIUfzlpY3ccJjSE/0Y4e5\nV6wrlyM08rXs3iaMNOoNItx5\n-----END PRIVATE KEY-----\n",
+  "client_email": "transport-schedule@transport-schedule-jsoj.iam.gserviceaccount.com",
+  "client_id": "102892721252894812366",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/transport-schedule%40transport-schedule-jsoj.iam.gserviceaccount.com"
+}

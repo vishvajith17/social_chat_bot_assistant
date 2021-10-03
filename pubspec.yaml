@@ -36,7 +36,7 @@ dependencies:
   cloud_firestore: ^0.13.4+2
   provider: ^4.0.4
   #firebase_storage: ^3.1.5
-  image_picker: ^0.6.4
+#  image_picker: ^0.6.7+17
   datetime_picker_formfield: ^1.0.0
   #flutter_local_notifications: ^1.4.1
   path_provider: ^0.5.0+1
@@ -61,6 +61,13 @@ dependencies:
   avatar_glow: ^1.2.0
 #  speech_recognition: ^2.0.0
 
+    # Text recognition
+
+  clipboard: ^0.1.2+8
+
+  firebase_ml_vision:
+  image_picker: 0.6.3+1
+  image_cropper:
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +89,9 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/telecomchatbot-skxa-26c2978d0c99.json
+    - assets/photo-1500817487388-039e623edc21.jpg
+    - assets/transport-schedule-jsoj-cd586213a3d8.json
+    - gif/bg.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -98,6 +108,11 @@ flutter:
     - family: Lobster
       fonts:
        - asset: fonts/Lobster-Regular.ttf
+
+    - family: xd
+      fonts:
+          - asset: fonts/bg.ttf
+            weight: 600
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -4,6 +4,10 @@ import 'package:social_chat_bot_assistant/screens/DomainPage/components/backgrou
 import 'package:social_chat_bot_assistant/screens/TransportDomain/lost_something_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'package:social_chat_bot_assistant/home.dart';
+
+
+
 class Body extends StatelessWidget {
   const Body({
     Key key,
@@ -38,13 +42,13 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             RoundedButton(
-              text: "Need Schedule",
+              text: "Scan Card",
               press: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LostSomething();
+                      return HomePage();
                     },
                   ),
                 );
@@ -52,7 +56,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             RoundedButton(
-              text: "Complains",
+              text: "Schedule",
               press: () {
                 Navigator.push(
                   context,
