@@ -264,7 +264,7 @@ class _ChatState extends State<BotChat> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Chat bot",
+          "Telecommunication",
         ),
       ),
       body: Container(
