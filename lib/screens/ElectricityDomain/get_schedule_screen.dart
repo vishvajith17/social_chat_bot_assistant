@@ -8,16 +8,6 @@ import 'package:social_chat_bot_assistant/constants.dart';
 
 class GetSchedule extends StatefulWidget {
   GetSchedule({Key key, this.title}) : super(key: key);
-
-// This widget is the home page of your application. It is stateful, meaning
-// that it has a State object (defined below) that contains fields that affect
-// how it looks.
-
-// This class is the configuration for the state. It holds the values (in this
-// case the title) provided by the parent (in this case the App widget) and
-// used by the build method of the State. Fields in a Widget subclass are
-// always marked "final".
-
   final String title;
 
   @override
@@ -25,7 +15,6 @@ class GetSchedule extends StatefulWidget {
 }
 
 class _GetScheduleState extends State<GetSchedule> {
-
 // for suggestions
   List<String> suggestions = [];
   void botSuggestions(List<dynamic> responses) {
@@ -49,8 +38,6 @@ class _GetScheduleState extends State<GetSchedule> {
   // multiple response
   void insertMessage(AIResponse aiResponse) {
     for (var i = 0; i < aiResponse.getListMessage().length; i++) {
-      print(i);
-
       setState(() {
         messsages.insert(0, {
           "data": 0,
@@ -59,6 +46,46 @@ class _GetScheduleState extends State<GetSchedule> {
         });
       });
     }
+  }
+
+  //------------get schedule from db
+  void getSchedule(String acc_num, String date) async {
+    print('yes');
+    String area;
+    String timeFrom;
+    String timeTo;
+    String msg;
+    String checkMess =
+        'Checking for schedule...\nAccount number: $acc_num \nDate: $date';
+    setState(() {
+      messsages.insert(0, {"data": 0, "message": checkMess});
+    });
+
+    final e_userCollection = await Firestore.instance
+        .collection('e_users')
+        .where("registration", isEqualTo: acc_num)
+        .getDocuments();
+    e_userCollection.documents.forEach((document) {
+      area = document['area'];
+    });
+    print(area);
+    final scheduleCollection = await Firestore.instance
+        .collection('e_schedules')
+        .where("date", isEqualTo: date)
+        .where("areas", arrayContains: area)
+        .getDocuments();
+    if (scheduleCollection.documents.isEmpty) {
+      msg = 'There are no powercut schedule for $acc_num on $date. Thank you';
+    } else {
+      scheduleCollection.documents.forEach((document) {
+        timeFrom = document['timeFrom'];
+        timeTo = document['timeTo'];
+        msg = 'There is a power scheduled from $timeFrom to $timeTo. Thank you';
+      });
+    }
+    setState(() {
+      messsages.insert(0, {"data": 0, "message": msg});
+    });
   }
 
 //---------------
@@ -85,7 +112,7 @@ class _GetScheduleState extends State<GetSchedule> {
 
 //-----------------------------------------
     // final List<Context> outputContexts = aiResponse.queryResult.outputContexts;
-    //print(aiResponse.queryResult.);
+    print(aiResponse.queryResult.intent.displayName);
 
     if (aiResponse.queryResult.intent.displayName == 'Welcome.default') {
       setState(() {
@@ -105,6 +132,18 @@ class _GetScheduleState extends State<GetSchedule> {
                 aiResponse.getListMessage()[i]["text"]["text"][0].toString()
           });
         });
+      }
+    } else if (aiResponse.queryResult.intent.displayName == 'get-all') {
+      account_num = aiResponse.queryResult.parameters['account_number'];
+      var strdate;
+      strdate = aiResponse.queryResult.parameters["date"];
+      formatedsdate = strdate.split(
+            'T')[0]; //yesterday........2021-09-24T12:00:00+05:30...string
+      print(formatedsdate);
+      if (account_num != '' && formatedsdate != '') {        
+        getSchedule(account_num, formatedsdate);
+      } else {
+        insertMessage(aiResponse);
       }
     } else if (aiResponse.queryResult.intent.displayName == 'ask-account-num') {
       insertMessage(aiResponse);
@@ -159,7 +198,6 @@ class _GetScheduleState extends State<GetSchedule> {
       });
     } else {
       insertMessage(aiResponse);
-      //  botSuggestions(aiResponse.getListMessage());
     }
   }
 
@@ -200,13 +238,6 @@ class _GetScheduleState extends State<GetSchedule> {
             ),
             Container(
               child: ListTile(
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.camera_alt,
-                    color: Colors.greenAccent,
-                    size: 35,
-                  ),
-                ),
                 title: Container(
                   height: 35,
                   decoration: BoxDecoration(
