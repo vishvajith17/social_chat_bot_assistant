@@ -11,6 +11,50 @@ import 'package:social_chat_bot_assistant/screens/Signup/components/social_icon.
 import 'package:flutter_svg/svg.dart';
 import 'package:social_chat_bot_assistant/services/auth_service.dart';
 
+class FirstNameFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'First name can\'t be empty' : null;
+  }
+}
+
+class LastNameFieldValidator {
+  static String validate(String value) {
+    return  value.isEmpty ? 'Last name can\'t be empty' : null;
+  }
+}
+
+class DoBFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'DoB can\'t be empty' : null;
+  }
+}
+
+class NICFieldValidator {
+  static String validate(String value) {
+    return  value.isEmpty ? 'NIC can\'t be empty' : null;
+  }
+}
+
+class MobileFieldValidator {
+  static String validate(String value) {
+    return value.length < 10 || value.length > 10
+                                  ? 'Enter a phone number with 10 numbers'
+                                  : null;
+  }
+}
+
+class EmailFieldValidator {
+  static String validate(String value) {
+    return  value.isEmpty ? 'Enter an valid email' : null;
+  }
+}
+
+class PasswordFieldValidator {
+  static String validate(String value) {
+    return value.length < 6 ? 'Enter a password 6+ chars long' : null;
+  }
+}
+                              
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -52,8 +96,7 @@ class _BodyState extends State<Body> {
                         SizedBox(height: 20.0),
                         RoundedInputField(
                           hintText: "First Name",
-                          validator: (value) =>
-                              value.isEmpty ? 'Enter your first name' : null,
+                          validator: (value) =>FirstNameFieldValidator.validate(value),
                           onChanged: (value) {
                             setState(() {
                               firstName = value;
@@ -62,10 +105,7 @@ class _BodyState extends State<Body> {
                         ),
                         RoundedInputField(
                           hintText: "Last Name",
-                          validator: (value) =>
-                              value.isEmpty || value == firstName
-                                  ? 'Enter your last name'
-                                  : null,
+                          validator: (value) =>LastNameFieldValidator.validate(value),
                           onChanged: (value) {
                             setState(() {
                               lastName = value;
@@ -75,8 +115,7 @@ class _BodyState extends State<Body> {
                         RoundedInputField(
                           hintText: "Birth Day (YYYY/MM/DD)",
                           icon: Icons.cake,
-                          validator: (value) =>
-                              value.isEmpty ? 'Enter your birth day' : null,
+                          validator: (value) =>DoBFieldValidator.validate(value),
                           onChanged: (value) {
                             setState(() {
                               birthDay = value;
@@ -86,8 +125,7 @@ class _BodyState extends State<Body> {
                         RoundedInputField(
                           hintText: "NIC",
                           icon: Icons.branding_watermark,
-                          validator: (value) =>
-                              value.isEmpty ? 'Enter a valid nic number' : null,
+                          validator: (value) =>NICFieldValidator.validate(value),
                           onChanged: (value) {
                             setState(() {
                               nic = value;
@@ -97,10 +135,7 @@ class _BodyState extends State<Body> {
                         RoundedInputField(
                           hintText: "Phone Number",
                           icon: Icons.phone,
-                          validator: (value) =>
-                              value.length < 10 || value.length > 10
-                                  ? 'Enter a valid phone number'
-                                  : null,
+                          validator: (value) => MobileFieldValidator.validate(value),
                           onChanged: (value) {
                             setState(() {
                               phoneNumber = value;
@@ -109,8 +144,7 @@ class _BodyState extends State<Body> {
                         ),
                         RoundedInputField(
                           hintText: "Email",
-                          validator: (value) =>
-                              value.isEmpty ? 'Enter an valid email' : null,
+                          validator: (value) =>EmailFieldValidator.validate(value),
                           onChanged: (value) {
                             setState(() {
                               email = value;
@@ -118,9 +152,7 @@ class _BodyState extends State<Body> {
                           },
                         ),
                         RoundedPasswordField(
-                          validator: (value) => value.length < 6
-                              ? 'Enter a password 6+ chars long'
-                              : null,
+                          validator: (value) => PasswordFieldValidator.validate(value),
                           onChanged: (value) {
                             setState(() {
                               password = value;

@@ -65,8 +65,6 @@ class _ComplaintState extends State<Complaint> {
   // multiple response
   void insertMessage(AIResponse aiResponse) {
     for (var i = 0; i < aiResponse.getListMessage().length; i++) {
-      print(i);
-
       setState(() {
         messsages.insert(0, {
           "data": 0,
@@ -85,10 +83,16 @@ class _ComplaintState extends State<Complaint> {
         .document((user.uid))
         .get();
     final userName = userData['last_name'];
-    // final phone_number = userData['phone_number'];
+    final user_email = userData['email'];
+
     CollectionReference complaintCollection =
         await Firestore.instance.collection('electricity_complaint');
 
+    //complain log
+    final complaintLog = await Firestore.instance
+        .collection('electricity_complaint')
+        .where('user', isEqualTo: user.uid)
+        .getDocuments();
     //-----------------------------------------------------------------------------------------------------
     AuthGoogle authGoogle = await AuthGoogle(
             fileJson: "assets/electricity-other-complai-tsdh-3a6737d1a7a7.json")
@@ -100,8 +104,6 @@ class _ComplaintState extends State<Complaint> {
 
 //-----------------------------------------
     // final List<Context> outputContexts = aiResponse.queryResult.outputContexts;
-    //print(aiResponse.queryResult.);
-
     if (aiResponse.queryResult.intent.displayName == 'Welcome.default') {
       setState(() {
         messsages.insert(0, {
@@ -113,8 +115,6 @@ class _ComplaintState extends State<Complaint> {
         });
       });
       for (var i = 1; i < aiResponse.getListMessage().length; i++) {
-        print(i);
-
         setState(() {
           messsages.insert(0, {
             "data": 0,
@@ -123,6 +123,44 @@ class _ComplaintState extends State<Complaint> {
           });
         });
       }
+    } else if (aiResponse.queryResult.intent.displayName ==
+        'ask-complain-log') {
+      String reference_no = '';
+      String complaint = '';
+      String status = '';
+      String description = '';
+      if (complaintLog.documents.isEmpty) {
+        setState(() {
+          messsages.insert(
+              0, {"data": 0, "message": 'you haven"t make a complaint yet!'});
+        });
+      } else {
+        complaintLog.documents.forEach((document) {
+          reference_no = document.documentID;
+          complaint = document['complaint'];
+          status = document['status'];
+          if (document['description'] == null) {
+            description = "not provided";
+          } else {
+            description = document['description'];
+          }
+
+          setState(() {
+            messsages.insert(0, {
+              "data": 0,
+              "message":
+                  'Reference id: $reference_no,  complaint:$complaint, status:$status, description:$description'
+            });
+          });
+        });
+      }
+      setState(() {
+        messsages.insert(0, {
+          "data": 0,
+          "message":
+              'If you want to complain, type "Complain" or If you want to exit, type "Exit" '
+        });
+      });
     } else if (aiResponse.queryResult.intent.displayName == 'ask-account-num') {
       insertMessage(aiResponse);
       account_num =
@@ -141,15 +179,14 @@ class _ComplaintState extends State<Complaint> {
             'get-other-servicerequest' ||
         aiResponse.queryResult.intent.displayName == 'get-breakdown-other') {
       insertMessage(aiResponse);
-      complain =  aiResponse.queryResult.parameters['complains'];
-      print(complain);
-    }
-    else if (aiResponse.queryResult.intent.displayName ==
+      complain = aiResponse.queryResult.parameters['complains'];
+
+    } else if (aiResponse.queryResult.intent.displayName ==
             'get-other-servicerequest' ||
         aiResponse.queryResult.intent.displayName == 'get-breakdown-other') {
       insertMessage(aiResponse);
-      complain ='other-'+  aiResponse.queryResult.parameters['complains'];
-      print(complain);
+      complain = 'other-' + aiResponse.queryResult.parameters['complains'];
+
     } else if (aiResponse.queryResult.intent.displayName ==
             'get-servicerequest-complain - yes' ||
         aiResponse.queryResult.intent.displayName ==
@@ -219,13 +256,6 @@ class _ComplaintState extends State<Complaint> {
             ),
             Container(
               child: ListTile(
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.camera_alt,
-                    color: Colors.greenAccent,
-                    size: 35,
-                  ),
-                ),
                 title: Container(
                   height: 35,
                   decoration: BoxDecoration(

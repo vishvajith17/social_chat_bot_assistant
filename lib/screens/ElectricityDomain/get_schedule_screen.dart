@@ -50,7 +50,6 @@ class _GetScheduleState extends State<GetSchedule> {
 
   //------------get schedule from db
   void getSchedule(String acc_num, String date) async {
-    print('yes');
     String area;
     String timeFrom;
     String timeTo;
@@ -68,7 +67,7 @@ class _GetScheduleState extends State<GetSchedule> {
     e_userCollection.documents.forEach((document) {
       area = document['area'];
     });
-    print(area);
+
     final scheduleCollection = await Firestore.instance
         .collection('e_schedules')
         .where("date", isEqualTo: date)
@@ -112,7 +111,6 @@ class _GetScheduleState extends State<GetSchedule> {
 
 //-----------------------------------------
     // final List<Context> outputContexts = aiResponse.queryResult.outputContexts;
-    print(aiResponse.queryResult.intent.displayName);
 
     if (aiResponse.queryResult.intent.displayName == 'Welcome.default') {
       setState(() {
@@ -139,7 +137,7 @@ class _GetScheduleState extends State<GetSchedule> {
       strdate = aiResponse.queryResult.parameters["date"];
       formatedsdate = strdate.split(
             'T')[0]; //yesterday........2021-09-24T12:00:00+05:30...string
-      print(formatedsdate);
+
       if (account_num != '' && formatedsdate != '') {        
         getSchedule(account_num, formatedsdate);
       } else {
@@ -154,7 +152,7 @@ class _GetScheduleState extends State<GetSchedule> {
       strdate = aiResponse.queryResult.parameters["date"];
       formatedsdate = strdate
           .split('T')[0]; //yesterday........2021-09-24T12:00:00+05:30...string
-      print('formated date is $formatedsdate');
+
       // date = DateTime.parse(
       //     formatedsdate); //argument should be some format..2021-09-24T05:00:00
     } else if (aiResponse.queryResult.intent.displayName ==
@@ -176,7 +174,7 @@ class _GetScheduleState extends State<GetSchedule> {
       e_userCollection.documents.forEach((document) {
         area = document['area'];
       });
-      print(area);
+
       final scheduleCollection = await Firestore.instance
           .collection('e_schedules')
           .where("date", isEqualTo: formatedsdate)

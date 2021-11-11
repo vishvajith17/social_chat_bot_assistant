@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+/*import 'package:flutter/cupertino.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class SpeechApi {
@@ -25,4 +25,4 @@ class SpeechApi {
     print(isAvailable);
     return isAvailable;
   }
-}
+}*/

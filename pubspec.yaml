@@ -54,18 +54,14 @@ dependencies:
   flutube: ^0.8.3
   flutter_svg: ^0.19.1
   bubble: ^1.1.9+1
-
-  speech_to_text: ^3.1.0
-  highlight_text: ^0.7.2
-  avatar_glow: ^1.2.0
-#  speech_recognition: ^2.0.0
+  cloud_firestore_mocks: ^0.4.7
 
 dev_dependencies:
   mockito: ^4.1.1
   rxdart:
   flutter_test:
     sdk: flutter
-
+#  mockito: 3.12.4
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -91,6 +87,9 @@ flutter:
     - assets/transport-schedule-jsoj-cd586213a3d8.json
     #electricity
     - assets/telecomchatbot-skxa-2b87d5049ce5.json
+    # - assets/transport-agent-gpgv-149fd6638fbf.json
+    #  - assets/services/transport-agent-lost-something.json
+    #- assets/lost-something-plgg-678667f69a6c.json
     - assets/electricity-other-complai-tsdh-3a6737d1a7a7.json
     - assets/electricity-power-schedul-tsbv-701136c4a6d8.json
     - assets/electricity-sudden_power_failure.json
