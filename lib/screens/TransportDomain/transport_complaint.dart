@@ -104,30 +104,6 @@ class _ChatState extends State<BotChatComplaint> {
           .getListMessage()[0]["text"]["text"][0]
           .toString()
           .replaceAll('user', userName));
-    } else if (aiResponse.queryResult.intent.displayName ==
-        'Complain - no - payment - issue - fallback - select.number') {
-      for (var i = 0; i < aiResponse.getListMessage().length; i++) {
-        print(i);
-        if (i == 0) {
-          setState(() {
-            messsages.insert(0, {
-              "data": 0,
-              "message": aiResponse
-                  .getListMessage()[0]["text"]["text"][0]
-                  .toString()
-                  .replaceAll(': 2', ': $reference_no')
-            });
-          });
-        } else {
-          setState(() {
-            messsages.insert(0, {
-              "data": 0,
-              "message":
-                  aiResponse.getListMessage()[1]["text"]["text"][0].toString()
-            });
-          });
-        }
-      }
     } else {
       for (var i = 0; i < aiResponse.getListMessage().length; i++) {
         print(i);

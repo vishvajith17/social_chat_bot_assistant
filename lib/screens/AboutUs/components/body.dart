@@ -10,12 +10,59 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("CSE GROUP 38"),
-            Text("SOCIAL INQUIRY CHAT-BOT MOBILE APPLICATION"),
-            Text("DEVELOPERS:"),
-            Text("H.G.M.VISHVAJITH"),
-            Text("V.SALINY"),
-            Text("V.VIPOOSHAN"),
+            Card(
+                child:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.important_devices),
+                title: Text("SOCIAL INQUIRY CHAT-BOT MOBILE APPLICATION"),
+                subtitle: Text("CSE GROUP 38 - PID 20"),
+              ),
+            ])),
+            Card(
+                child:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.info),
+                title: Text("DEVELOPERS"),
+              ),
+            ])),
+            Card(
+                child:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.star),
+                title: Text("H.G.M.VISHVAJITH"),
+                subtitle: Text("maduka.18@cse.mrt.ac.lk"),
+              ),
+            ])),
+            Card(
+                child:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.star),
+                title: Text("V.SALINY"),
+                subtitle: Text("sakiny.18@cse.mrt.ac.lk"),
+              ),
+            ])),
+            Card(
+                child:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.star),
+                title: Text("V.VIPOOSHAN"),
+                subtitle: Text("vipooshan.18@cse.mrt.ac.lk"),
+              ),
+            ])),
+            Card(
+                child:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              const ListTile(
+                leading: Icon(Icons.info),
+                title: Text("MENTOR"),
+                subtitle: Text("DR.NISANSA DE SILVA"),
+              ),
+            ])),
             SizedBox(height: size.height * 0.03),
           ],
         ),

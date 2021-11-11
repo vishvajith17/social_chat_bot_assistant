@@ -6,7 +6,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("CHAT-BOT ASSISTANT"),
+        title: Text("CHATTY"),
       ),
       body: Body(),
     );

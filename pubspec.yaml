@@ -60,8 +60,9 @@ dependencies:
   avatar_glow: ^1.2.0
 #  speech_recognition: ^2.0.0
 
-
 dev_dependencies:
+  mockito: ^4.1.1
+  rxdart:
   flutter_test:
     sdk: flutter
 
