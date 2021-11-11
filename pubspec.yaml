@@ -3,7 +3,7 @@ description: A new Flutter application.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -54,22 +55,18 @@ dependencies:
   flutube: ^0.8.3
   flutter_svg: ^0.19.1
   bubble: ^1.1.9+1
-
-  speech_to_text: ^3.1.0
-  highlight_text: ^0.7.2
-  avatar_glow: ^1.2.0
-#  speech_recognition: ^2.0.0
-
+  cloud_firestore_mocks: ^0.4.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+#  mockito: 3.12.4
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -90,9 +87,13 @@ flutter:
     - assets/transport-schedule-jsoj-cd586213a3d8.json
     #electricity
     - assets/telecomchatbot-skxa-2b87d5049ce5.json
+   # - assets/transport-agent-gpgv-149fd6638fbf.json
+  #  - assets/services/transport-agent-lost-something.json
+    #- assets/lost-something-plgg-678667f69a6c.json
     - assets/electricity-other-complai-tsdh-3a6737d1a7a7.json
     - assets/electricity-power-schedul-tsbv-701136c4a6d8.json
     - assets/electricity-sudden_power_failure.json
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -108,7 +109,7 @@ flutter:
   fonts:
     - family: Lobster
       fonts:
-        - asset: fonts/Lobster-Regular.ttf
+       - asset: fonts/Lobster-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

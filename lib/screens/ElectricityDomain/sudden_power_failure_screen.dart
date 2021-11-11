@@ -90,13 +90,10 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
     } else if (strdatetime.containsKey('endDateTime') ||
         strdatetime.containsKey('startDateTime')) {
       //yesterday morning ...{ "startDateTime": "2021-09-24T05:00:00+05:30", "endDateTime": "2021-09-24T11:59:59+05:30" }
-      // print(strdatetime['startDateTime'].split('+')[0]);
       formatedsdatetime = strdatetime['startDateTime'].split('+')[0];
     }
-    // print('formated date is $formatedsdatetime');
     date_time = DateTime.parse(
         formatedsdatetime); //argument should be some format..2021-09-24T05:00:00
-    //print('final date time is $date_time');
     return date_time;
   }
 
@@ -109,9 +106,11 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
         .get();
     final userName = userData['last_name'];
 
-    //CollectionReference complaintCollection =
-    // await Firestore.instance.collection('electricity_sudden_powercut');
-
+    //powercut log
+    final powercutLog = await Firestore.instance
+        .collection('electricity_sudden_powercut')
+        .where('user', isEqualTo: user.uid)
+        .getDocuments();
     //-----------------------------------------------------------------------------------------------------
     AuthGoogle authGoogle = await AuthGoogle(
             fileJson: "assets/electricity-sudden_power_failure.json")
@@ -121,7 +120,6 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
     AIResponse aiResponse = await dialogflow.detectIntent(query);
 //-----------------------------------------
     // final List<Context> outputContexts = aiResponse.queryResult.outputContexts;
-    //print(aiResponse.queryResult.);
 
     if (aiResponse.queryResult.intent.displayName == 'Welcome.default') {
       setState(() {
@@ -142,6 +140,44 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
           });
         });
       }
+    } else if (aiResponse.queryResult.intent.displayName ==
+        'ask-powercut-log') {
+      String reference_no = '';
+      String date_time = '';
+      String status = '';
+      String description = '';
+      if (powercutLog.documents.isEmpty) {
+        setState(() {
+          messsages.insert(
+              0, {"data": 0, "message": 'you haven"t make a powercut complaint yet!'});
+        });
+      } else {
+        powercutLog.documents.forEach((document) {
+          reference_no = document.documentID;
+          date_time = document['date_time'].toString();
+          status = document['status'];
+          if (document['description'] == null) {
+            description = "not provided";
+          } else {
+            description = document['description'];
+          }
+
+          setState(() {
+            messsages.insert(0, {
+              "data": 0,
+              "message":
+                  'Reference id: $reference_no,  date&time:$date_time, status:$status, description:$description'
+            });
+          });
+        });
+      }
+      setState(() {
+        messsages.insert(0, {
+          "data": 0,
+          "message":
+              'If you want to report a powercut, type "powercut" or If you want to exit, type "Exit" '
+        });
+      });
     } else if (aiResponse.queryResult.intent.displayName == 'ask-account-num') {
       insertMessage(aiResponse);
       account_num =
@@ -150,7 +186,6 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
       insertMessage(aiResponse);
       var strdatetime;
       strdatetime = aiResponse.queryResult.parameters["date-time"];
-      //print(strdatetime.runtimeType);
       date_time = formatDate(strdatetime);
     } else if (aiResponse.queryResult.intent.displayName == 'ask-all') {
       insertMessage(aiResponse);

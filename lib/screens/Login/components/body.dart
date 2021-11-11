@@ -9,6 +9,18 @@ import 'package:social_chat_bot_assistant/screens/Signup/signup_screen.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:social_chat_bot_assistant/services/auth_service.dart';
 
+class EmailFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Enter an valid email' : null;
+  }
+}
+
+class PasswordFieldValidator {
+  static String validate(String value) {
+    return  value.length < 6 ? 'Enter a password 6+ chars long' : null;
+  }
+}
+
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -50,8 +62,7 @@ class _BodyState extends State<Body> {
                         SizedBox(height: 20.0),
                         RoundedInputField(
                           hintText: "Your Email",
-                          validator: (val) =>
-                              val.isEmpty ? 'Enter an valid email' : null,
+                          validator: (val) => EmailFieldValidator.validate(val),
                           onChanged: (val) {
                             setState(() {
                               email = val;
@@ -59,9 +70,7 @@ class _BodyState extends State<Body> {
                           },
                         ),
                         RoundedPasswordField(
-                          validator: (val) => val.length < 6
-                              ? 'Enter a password 6+ chars long'
-                              : null,
+                          validator: (val) => PasswordFieldValidator.validate(val),
                           onChanged: (val) {
                             setState(() => password = val);
                           },
