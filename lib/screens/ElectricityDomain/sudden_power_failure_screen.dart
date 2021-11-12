@@ -154,7 +154,7 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
       } else {
         powercutLog.documents.forEach((document) {
           reference_no = document.documentID;
-          date_time = document['date_time'].toString();
+          date_time = document['date_time'].toDate().toString().split('.')[0]; //2021-09-26 06:50:00.000
           status = document['status'];
           if (document['description'] == null) {
             description = "not provided";
@@ -166,7 +166,7 @@ class _SuddenPowerFailureState extends State<SuddenPowerFailure> {
             messsages.insert(0, {
               "data": 0,
               "message":
-                  'Reference id: $reference_no,  date&time:$date_time, status:$status, description:$description'
+                  'Reference id: $reference_no,  date&time: $date_time, status: $status, description: $description'
             });
           });
         });
