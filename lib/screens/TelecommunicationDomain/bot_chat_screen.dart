@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:social_chat_bot_assistant/constants.dart';
 import 'package:social_chat_bot_assistant/models/user_model.dart';
 import 'package:social_chat_bot_assistant/services/database.dart';
-
+import 'dart:math';
 class BotChat extends StatefulWidget {
   BotChat({Key key, this.title}) : super(key: key);
 
@@ -27,213 +27,119 @@ class BotChat extends StatefulWidget {
 }
 
 class _ChatState extends State<BotChat> {
+
   //previous intent name
   String pre_intent = null;
   String prev_query = null;
 
   //complaint and their status
-  String complaint = null;
-  String date = null;
-  int reference_no = null;
-  String status = null;
+  String complaint=null;
+  String date=null;
+  int reference_no=null;
+  String status=null;
 
   //subscription plan details
-  String price = null;
-  String anytime = null;
-  String night = null;
-  String validity = null;
+  String price=null;
+  String anytime=null;
+  String night=null;
+  String validity=null;
+
+  //review
+  int review = null;
+  int reviewPhone=null;
 
   //Balance
-  int balance = null;
+  int balance=null;
 
   String userName;
   String user_id;
   String phone_number;
+  String email;
   int queryPhoneNo;
   void response(query) async {
-    final user = await FirebaseAuth.instance.currentUser();
-    final userData = await Firestore.instance
-        .collection('clients')
-        .document((user.uid))
-        .get();
-    final complaintCollection = await Firestore.instance
-        .collection('telecomComplaint')
-        .where("phone_number", isEqualTo: phone_number)
-        .getDocuments();
-    final subscriptionCollection = await Firestore.instance
-        .collection('telecomSubscriptions')
-        .getDocuments();
-    final balanceCollection = await Firestore.instance
-        .collection('telecomBalance')
-        .document(userData['phone_number'])
-        .get();
 
-    //print(balanceCollection['balance']);
+    final user = await FirebaseAuth.instance.currentUser();
+    final userData = await Firestore.instance.collection('clients').document((user.uid)).get();
+    final complaintCollection = await Firestore.instance.collection('telecomComplaint').where("phone_number", isEqualTo: phone_number).getDocuments();
+    final subscriptionCollection = await Firestore.instance.collection('telecomSubscriptions').getDocuments();
+    final balanceCollection = await Firestore.instance.collection('telecomBalance').document(userData['phone_number']).get();
+
+    print(balanceCollection['balance']);
     user_id = user.uid;
     userName = userData['last_name'];
-    phone_number = userData['phone_number'];
-    CollectionReference complaintData =
-        await Firestore.instance.collection('telecomComplaint');
+    email = userData['email'];
+    // phone_number = userData['phone_number'];
+    CollectionReference complaintData = await Firestore.instance.collection('telecomComplaint');
+    CollectionReference reviewData = await Firestore.instance.collection('telecomReview');
     print(phone_number);
 
 //---------------------------------------------------------------
-    AuthGoogle authGoogle = await AuthGoogle(
-            fileJson: "assets/telecomchatbot-skxa-26c2978d0c99.json")
-        .build();
+    AuthGoogle authGoogle =
+    await AuthGoogle(fileJson: "assets/telecomchatbot-skxa-26c2978d0c99.json").build();
     Dialogflow dialogflow =
-        Dialogflow(authGoogle: authGoogle, language: Language.english);
+    Dialogflow(authGoogle: authGoogle, language: Language.english);
     AIResponse aiResponse = await dialogflow.detectIntent(query);
 
     // display welcome phrases with user name
+    print(new Random().nextInt(10000000));
     print(query);
+    if (aiResponse.queryResult.parameters['reviewNumber'] != null) {review=aiResponse.queryResult.parameters['reviewNumber'];}
+    // review=aiResponse.queryResult.parameters['reviewNumber'];
 
-    if (aiResponse.queryResult.intent.displayName == 'Default Welcome Intent') {
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message": aiResponse
-              .getListMessage()[0]["text"]["text"][0]
-              .toString()
-              .replaceAll('user', userName)
-        });
-      });
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message":
-              aiResponse.getListMessage()[1]["text"]["text"][0].toString()
-        });
-      });
+    if(aiResponse.queryResult.intent.displayName ==  'Default Welcome Intent'){
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString().replaceAll('user', userName.replaceFirst(userName[0], userName[0].toUpperCase()))});});
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[1]["text"]["text"][0].toString()});});
     }
     // display reference number when input is 1
-    else if (aiResponse.queryResult.intent.displayName ==
-            'Complain - no - issue - custom - select.number' &&
-        int.parse(query) == 1) {
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message": aiResponse
-              .getListMessage()[0]["text"]["text"][0]
-              .toString()
-              .replaceAll('@reference-number', ': $reference_no')
-        });
-      });
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message":
-              aiResponse.getListMessage()[1]["text"]["text"][0].toString()
-        });
-      });
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message":
-              aiResponse.getListMessage()[2]["text"]["text"][0].toString()
-        });
-      });
+    else if (aiResponse.queryResult.intent.displayName ==  'Complain - no - issue - custom - select.number' && int.parse(query)==1) {
+
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString().replaceAll('@reference-number', ': $reference_no')});});
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[1]["text"]["text"][0].toString()});});
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[2]["text"]["text"][0].toString()});});
     }
     // display history of complaints
-    else if (pre_intent == 'Complain - yes' && double.tryParse(query) != null) {
-      complaintCollection.documents.forEach((document) {
-        complaint = document['complaint'];
-        date = document['date'].toDate().toString();
-        reference_no = document['reference_number'];
-        status = document['status'];
+    else if (pre_intent=='Complain - yes' && double.tryParse(query)!= null){
 
-        setState(() {
-          messsages.insert(0, {
-            "data": 0,
-            "message":
-                'Reference No: $reference_no Status: $status                       '
-                    'Date: $date Area: $complaint'
-          });
-        });
-        print(
-            'Reference No: $reference_no Status: $status                       '
-            'Date: $date Area: $complaint');
-      });
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message":
-              aiResponse.getListMessage()[0]["text"]["text"][0].toString()
-        });
-      });
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message":
-              aiResponse.getListMessage()[1]["text"]["text"][0].toString()
-        });
-      });
-    } else if (aiResponse.queryResult.intent.displayName ==
-        'Complain - no - issue - custom') {
+      complaintCollection.documents.forEach((document) {complaint= document['complaint'];date = document['date'].toDate().toString();reference_no = document['reference_number'];status = document['status'];
+
+      setState(() {messsages.insert(0, {"data": 0, "message": 'Reference No: $reference_no Status: $status                       '
+          'Date: $date Area: $complaint'});});
+      print('Reference No: $reference_no Status: $status                       '
+          'Date: $date Area: $complaint');});
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString()});});
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[1]["text"]["text"][0].toString()});});
+    }
+
+    else if(aiResponse.queryResult.intent.displayName ==  'Complain - no - issue - custom'){
       complaint = query;
-      reference_no = DateTime.now().millisecondsSinceEpoch;
-      complaintData
-          .add({
-            'complaint': query,
-            'reference_number': reference_no,
-            'phone_number': phone_number,
-            'date': DateTime.now(),
-            'status': 'pending',
-            'user_id': user_id,
-          })
-          .then((value) => print('User Added'))
-          .catchError((error) => print('failed to add user: $error'));
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message":
-              aiResponse.getListMessage()[0]["text"]["text"][0].toString()
-        });
-      });
-    } else if (aiResponse.queryResult.intent.displayName ==
-        'Subscription Plans') {
-      subscriptionCollection.documents.forEach((document) {
-        price = document['price'];
-        anytime = document['anytime data'];
-        night = document['night data'];
-        validity = document['validity'];
+      reference_no = DateTime.now().millisecondsSinceEpoch+new Random().nextInt(10000000) ;
+      complaintData.add({'complaint': query, 'reference_number': reference_no, 'phone_number': userData['phone_number'], 'date': DateTime.now(), 'status': 'pending', 'user_id':user_id,'email':email ,
+      }).then((value) => print ('User Added')).catchError((error) => print('failed to add user: $error'));
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString()});});
+    }
 
-        setState(() {
-          messsages.insert(0, {
-            "data": 0,
-            "message":
-                'Price: $price                     Anytime Data: $anytime                       '
-                    'Night Data: $night                                                 Validity: $validity'
-          });
-        });
-        ;
-      });
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message":
-              aiResponse.getListMessage()[0]["text"]["text"][0].toString()
-        });
-      });
-    } else if (aiResponse.queryResult.intent.displayName == 'Balance - yes') {
-      setState(() {
-        messsages.insert(0, {
-          "data": 0,
-          "message": aiResponse
-              .getListMessage()[0]["text"]["text"][0]
-              .toString()
-              .replaceAll('rupees', balanceCollection['balance'].toString())
-        });
-      });
-    } else {
-      for (var i = 0; i < aiResponse.getListMessage().length; i++) {
+    else if(aiResponse.queryResult.intent.displayName ==  'Subscription Plans'){
+      subscriptionCollection.documents.forEach((document) {price= document['price'];anytime = document['anytime_data'];night = document['night_data'];validity = document['validity'];
+
+      setState(() {messsages.insert(0, {"data": 0, "message": 'Price: $price                     Anytime Data: $anytime                       '
+          'Night Data: $night                                                 Validity: $validity'});});;});
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString()});});
+    }
+
+    else if(aiResponse.queryResult.intent.displayName ==  'Balance - yes'){
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString().replaceAll('rupees', balanceCollection['balance'].toString())});});
+    }
+
+    else if(aiResponse.queryResult.intent.displayName ==  'Done - custom - custom'){
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString()});});
+      setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[1]["text"]["text"][0].toString()});});
+      reviewData.add({'review': review, 'number':aiResponse.queryResult.parameters['phone-number']}).then((value) => print ('Review Added')).catchError((error) => print('failed to add user: $error'));
+    }
+
+    else {
+      for (var i = 0 ; i < aiResponse.getListMessage().length; i++) {
         print(i);
-        setState(() {
-          messsages.insert(0, {
-            "data": 0,
-            "message":
-                aiResponse.getListMessage()[i]["text"]["text"][0].toString()
-          });
-        });
+        setState(() {messsages.insert(0, {"data": 0, "message": aiResponse.getListMessage()[i]["text"]["text"][0].toString()});});
       }
       // print(aiResponse.getListMessage().length);
       // print(aiResponse.getListMessage()[1]["text"]["text"][0].toString());
@@ -241,6 +147,7 @@ class _ChatState extends State<BotChat> {
 
     pre_intent = aiResponse.queryResult.intent.displayName;
     prev_query = query;
+    print(aiResponse.queryResult.parameters['phone-number']);
     print(pre_intent);
     print(query);
     // complaintCollection.documents.forEach((document) {
@@ -264,7 +171,7 @@ class _ChatState extends State<BotChat> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Chat bot",
+          "Tele - Your Assistant",
         ),
       ),
       body: Container(
@@ -293,13 +200,13 @@ class _ChatState extends State<BotChat> {
             ),
             Container(
               child: ListTile(
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.camera_alt,
-                    color: Colors.greenAccent,
-                    size: 35,
-                  ),
-                ),
+                // leading: IconButton(
+                //   icon: Icon(
+                //     Icons.camera_alt,
+                //     color: Colors.greenAccent,
+                //     size: 35,
+                //   ),
+                // ),
                 title: Container(
                   height: 35,
                   decoration: BoxDecoration(
@@ -362,16 +269,16 @@ class _ChatState extends State<BotChat> {
       padding: EdgeInsets.only(left: 20, right: 20),
       child: Row(
         mainAxisAlignment:
-            data == 1 ? MainAxisAlignment.end : MainAxisAlignment.start,
+        data == 1 ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           data == 0
               ? Container(
-                  height: 60,
-                  width: 60,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage("assets/icons/bot_avatar.png"),
-                  ),
-                )
+            height: 60,
+            width: 60,
+            child: CircleAvatar(
+              backgroundImage: AssetImage("assets/icons/bot_avatar.png"),
+            ),
+          )
               : Container(),
           Padding(
             padding: EdgeInsets.all(10.0),
@@ -391,26 +298,26 @@ class _ChatState extends State<BotChat> {
                       ),
                       Flexible(
                           child: Container(
-                        constraints: BoxConstraints(maxWidth: 200),
-                        child: Text(
-                          message,
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ))
+                            constraints: BoxConstraints(maxWidth: 200),
+                            child: Text(
+                              message,
+                              style: TextStyle(
+                                  color: Colors.white, fontWeight: FontWeight.bold),
+                            ),
+                          ))
                     ],
                   ),
                 )),
           ),
           data == 1
               ? Container(
-                  height: 60,
-                  width: 60,
-                  child: CircleAvatar(
-                    backgroundColor: kPrimaryColor,
-                    backgroundImage: AssetImage("assets/icons/user_avatar.png"),
-                  ),
-                )
+            height: 60,
+            width: 60,
+            child: CircleAvatar(
+              backgroundColor: kPrimaryColor,
+              backgroundImage: AssetImage("assets/icons/user_avatar.png"),
+            ),
+          )
               : Container(),
         ],
       ),
